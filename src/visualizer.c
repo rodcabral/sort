@@ -54,6 +54,13 @@ void process_input(struct App* app) {
     }
 }
 
+void render(struct App* app) {
+    SDL_SetRenderDrawColor(app->renderer, 0x14, 0x14, 0x13, 255);
+    SDL_RenderClear(app->renderer);
+
+    SDL_RenderPresent(app->renderer);
+}
+
 void clean_sdl(struct App* app) {
     SDL_DestroyRenderer(app->renderer);
     SDL_DestroyWindow(app->window);

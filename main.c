@@ -8,6 +8,7 @@ int main(void) {
     app.is_running = init_window(&app);
 
     while(app.is_running) {
+        render(&app);
         process_input(&app);
     }
 

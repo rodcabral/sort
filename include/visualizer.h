@@ -20,4 +20,7 @@ bool init_window(struct App* app);
 
 void process_input(struct App* app);
 
+void render(struct App* app);
+
 void clean_sdl(struct App* app);
+
