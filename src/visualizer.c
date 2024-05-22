@@ -35,6 +35,25 @@ bool init_window(struct App* app) {
     return true;
 }
 
+void process_input(struct App* app) {
+    SDL_Event event;
+
+    while(SDL_PollEvent(&event)) {
+        switch(event.type) {
+            case SDL_QUIT:
+                app->is_running = false;
+                break;
+            case SDL_KEYDOWN:
+                switch(event.key.keysym.sym) {
+                    case SDLK_ESCAPE:
+                        app->is_running = false;
+                        break;
+                }
+                break;
+        }
+    }
+}
+
 void clean_sdl(struct App* app) {
     SDL_DestroyRenderer(app->renderer);
     SDL_DestroyWindow(app->window);
