@@ -35,6 +35,15 @@ bool init_window(struct App* app) {
     return true;
 }
 
+void setup(struct App* app) {
+    app->is_running = init_window(app);
+
+    app->container.w = CONTAINER_WIDTH;
+    app->container.h = CONTAINER_HEIGHT;
+    app->container.x = (WINDOW_WIDTH / 2) - (CONTAINER_WIDTH / 2);
+    app->container.y = (WINDOW_HEIGHT / 2) - (CONTAINER_HEIGHT / 2);
+}
+
 void process_input(struct App* app) {
     SDL_Event event;
 
@@ -57,6 +66,9 @@ void process_input(struct App* app) {
 void render(struct App* app) {
     SDL_SetRenderDrawColor(app->renderer, 0x14, 0x14, 0x13, 255);
     SDL_RenderClear(app->renderer);
+    
+    SDL_SetRenderDrawColor(app->renderer, 0xff, 0xff, 0xff, 255);
+    SDL_RenderDrawRect(app->renderer, &app->container);
 
     SDL_RenderPresent(app->renderer);
 }

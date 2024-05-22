@@ -9,14 +9,22 @@
 #define WINDOW_WIDTH 1600
 #define WINDOW_HEIGHT 900
 
+#define CONTAINER_WIDTH 1100
+#define CONTAINER_HEIGHT 650
+
 struct App {
     bool is_running;
 
     SDL_Window* window;
     SDL_Renderer* renderer;
+
+    // Container
+    SDL_Rect container;
 };
 
 bool init_window(struct App* app);
+
+void setup(struct App* app);
 
 void process_input(struct App* app);
 
