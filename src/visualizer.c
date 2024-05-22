@@ -35,13 +35,40 @@ bool init_window(struct App* app) {
     return true;
 }
 
+void load_media(struct App* app) {
+    SDL_Color title_color = {0xff,0xff,0xff,255};
+
+    TTF_Font* title_font = TTF_OpenFont("fonts/Futurette-ExtraLight.ttf", 30);
+
+    if(!title_font) {
+        fprintf(stderr, "%s\n", TTF_GetError());
+        return;
+    }
+
+    SDL_Surface *title_surface = TTF_RenderText_Blended(title_font, app->current_algorithm, title_color);
+
+    app->title_props.x = app->container.x;
+    app->title_props.y = app->container.y - 40;
+    app->title_props.w = title_surface->w;
+    app->title_props.h = title_surface->h;
+
+    app->title_texture = SDL_CreateTextureFromSurface(app->renderer, title_surface);
+
+    SDL_FreeSurface(title_surface);
+    TTF_CloseFont(title_font);
+}
+
 void setup(struct App* app) {
     app->is_running = init_window(app);
+    
+    app->current_algorithm = "Bubble Sort";
 
     app->container.w = CONTAINER_WIDTH;
     app->container.h = CONTAINER_HEIGHT;
     app->container.x = (WINDOW_WIDTH / 2) - (CONTAINER_WIDTH / 2);
     app->container.y = (WINDOW_HEIGHT / 2) - (CONTAINER_HEIGHT / 2);
+    
+    load_media(app);
 }
 
 void process_input(struct App* app) {
@@ -66,6 +93,8 @@ void process_input(struct App* app) {
 void render(struct App* app) {
     SDL_SetRenderDrawColor(app->renderer, 0x14, 0x14, 0x13, 255);
     SDL_RenderClear(app->renderer);
+
+    SDL_RenderCopy(app->renderer, app->title_texture, NULL, &app->title_props);
     
     SDL_SetRenderDrawColor(app->renderer, 0xff, 0xff, 0xff, 255);
     SDL_RenderDrawRect(app->renderer, &app->container);
@@ -74,6 +103,8 @@ void render(struct App* app) {
 }
 
 void clean_sdl(struct App* app) {
+    SDL_DestroyTexture(app->title_texture);
+
     SDL_DestroyRenderer(app->renderer);
     SDL_DestroyWindow(app->window);
 }

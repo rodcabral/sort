@@ -20,9 +20,16 @@ struct App {
 
     // Container
     SDL_Rect container;
+
+    // Current Algorithm Title
+    SDL_Texture *title_texture;
+    SDL_Rect title_props;
+    const char* current_algorithm;
 };
 
 bool init_window(struct App* app);
+
+void load_media(struct App* app);
 
 void setup(struct App* app);
 
