@@ -4,7 +4,7 @@ INCLUDE = -Iinclude
 LIBS = -lSDL2 -lSDL2_ttf
 
 all: build
-	$(CC) $(CFLAGS) main.c $(INCLUDE) src/visualizer.c -o build/visualizer $(LIBS)
+	$(CC) $(CFLAGS) main.c $(INCLUDE) src/visualizer.c src/sort.c -o build/visualizer $(LIBS)
 
 build:
 	mkdir build
