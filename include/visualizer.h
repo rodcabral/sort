@@ -15,6 +15,13 @@
 #define CONTAINER_WIDTH 1100
 #define CONTAINER_HEIGHT 650
 
+#define LINES_SIZE 100
+
+struct Line {
+    SDL_Rect rect;
+    int val;
+};
+
 struct App {
     bool is_running;
 
@@ -28,6 +35,8 @@ struct App {
     SDL_Texture *title_texture;
     SDL_Rect title_props;
     const char* current_algorithm;
+
+    struct Line lines[LINES_SIZE];
 };
 
 bool init_window(struct App* app);
@@ -38,7 +47,7 @@ void setup(struct App* app);
 
 void process_input(struct App* app);
 
-void render(struct App* app);
+void render(struct App* app, int i, int j);
 
 void clean_sdl(struct App* app);
 

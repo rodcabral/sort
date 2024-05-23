@@ -1,15 +1,14 @@
 #include <visualizer.h>
+#include <sort.h>
 
 int main(void) {
+    srand(time(NULL));
     printf("PID: %d\n", getpid());
     struct App app;
     
     setup(&app);
 
-    while(app.is_running) {
-        render(&app);
-        process_input(&app);
-    }
+    bubble_sort(&app);
 
     clean_sdl(&app);
 

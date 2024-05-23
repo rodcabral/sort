@@ -1,4 +1,5 @@
 #include <visualizer.h>
+#include <sort.h>
 
 bool init_window(struct App* app) {
     if(SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -68,6 +69,10 @@ void setup(struct App* app) {
     app->container.x = (WINDOW_WIDTH / 2) - (CONTAINER_WIDTH / 2);
     app->container.y = (WINDOW_HEIGHT / 2) - (CONTAINER_HEIGHT / 2);
     
+    for(int i = 0; i < LINES_SIZE; ++i) {
+        app->lines[i].val = rand() % app->container.h;
+    }
+
     load_media(app);
 }
 
@@ -90,7 +95,7 @@ void process_input(struct App* app) {
     }
 }
 
-void render(struct App* app) {
+void render(struct App* app, int r, int b) {
     SDL_SetRenderDrawColor(app->renderer, 0x14, 0x14, 0x13, 255);
     SDL_RenderClear(app->renderer);
 
@@ -98,6 +103,28 @@ void render(struct App* app) {
     
     SDL_SetRenderDrawColor(app->renderer, 0xff, 0xff, 0xff, 255);
     SDL_RenderDrawRect(app->renderer, &app->container);
+
+    int gap = 1;
+    
+    int curr_x = app->container.x;
+    for(int i = 0; i < LINES_SIZE; ++i) {
+        app->lines[i].rect.y = app->container.y + app->container.h;
+        app->lines[i].rect.w = (app->container.w / LINES_SIZE) - gap;
+        app->lines[i].rect.x = curr_x;
+        app->lines[i].rect.h = -(app->lines[i].val);
+        
+        curr_x += app->lines[i].rect.w + gap;
+
+        if(i == r) {
+            SDL_SetRenderDrawColor(app->renderer, 0xff, 0x00, 0x00, 255);
+        } else if(i == b) {
+            SDL_SetRenderDrawColor(app->renderer, 0x00, 0x00, 0xff, 255);
+        } else {
+            SDL_SetRenderDrawColor(app->renderer, 0xff, 0xff, 0xff, 255);
+        }
+
+        SDL_RenderFillRect(app->renderer, &app->lines[i].rect);
+    }
 
     SDL_RenderPresent(app->renderer);
 }
