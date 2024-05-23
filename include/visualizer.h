@@ -1,3 +1,6 @@
+#ifndef _SORT_VISUALIZER_H_
+#define _SORT_VISUALIZER_H_
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -39,3 +42,4 @@ void render(struct App* app);
 
 void clean_sdl(struct App* app);
 
+#endif
