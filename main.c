@@ -1,5 +1,6 @@
 #include <visualizer.h>
 #include <sort.h>
+#include <utils.h>
 
 int main(void) {
     srand(time(NULL));
@@ -10,9 +11,7 @@ int main(void) {
 
     selection_sort(&app);
 
-    for(int i = 0; i < LINES_SIZE; ++i) {
-        app.lines[i].val = rand() % app.container.h;
-    }
+    rand_array(&app);
 
     bubble_sort(&app);
 

@@ -1,5 +1,6 @@
 #include <visualizer.h>
 #include <sort.h>
+#include <utils.h>
 
 bool init_window(struct App* app) {
     if(SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -69,9 +70,7 @@ void setup(struct App* app) {
     app->container.x = (WINDOW_WIDTH / 2) - (CONTAINER_WIDTH / 2);
     app->container.y = (WINDOW_HEIGHT / 2) - (CONTAINER_HEIGHT / 2);
     
-    for(int i = 0; i < LINES_SIZE; ++i) {
-        app->lines[i].val = rand() % app->container.h;
-    }
+    rand_array(app);
 
     load_media(app);
 }
