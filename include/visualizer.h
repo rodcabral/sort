@@ -12,10 +12,10 @@
 #define WINDOW_WIDTH 1600
 #define WINDOW_HEIGHT 900
 
-#define CONTAINER_WIDTH 1100
+#define CONTAINER_WIDTH 1200
 #define CONTAINER_HEIGHT 650
 
-#define LINES_SIZE 100
+#define LINES_SIZE 300
 
 struct Line {
     SDL_Rect rect;
