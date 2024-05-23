@@ -1,3 +1,8 @@
-#ifndef
+#ifndef _SORT_H_
+#define _SORT_H_
 
-void bubble_sort()
+#include <visualizer.h>
+
+void bubble_sort(struct App* app);
+
+#endif
