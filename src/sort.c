@@ -39,9 +39,7 @@ void selection_sort(struct App* app) {
                 data_min = app->lines[j].val;
             }
         }
-        int aux = app->lines[i].val;
-        app->lines[i].val = data_min;
-        app->lines[min].val = aux;
+        swap(&app->lines[i].val, &app->lines[min].val);
         process_input(app);
         render(app, i, b);
         SDL_Delay(42);
