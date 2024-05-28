@@ -27,7 +27,7 @@ bool init_window(struct App* app) {
         return false;
     }
 
-    app->renderer = SDL_CreateRenderer(app->window, -1, SDL_RENDERER_ACCELERATED);
+    app->renderer = SDL_CreateRenderer(app->window, -1, 0);
 
     if(!app->renderer) {
         fprintf(stderr, "%s\n", SDL_GetError());

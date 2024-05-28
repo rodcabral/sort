@@ -5,5 +5,6 @@
 
 void bubble_sort(struct App* app);
 void selection_sort(struct App* app);
+void insertion_sort(struct App* app);
 
 #endif

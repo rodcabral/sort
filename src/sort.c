@@ -19,8 +19,8 @@ void bubble_sort(struct App* app) {
             }
         }
         process_input(app);
-        render(app, i, b);
         SDL_Delay(42);
+        render(app, i, b);
         if(!app->is_running) break;
     }
 }
@@ -44,5 +44,25 @@ void selection_sort(struct App* app) {
         render(app, i, b);
         SDL_Delay(42);
         if(!app->is_running) break;
+    }
+}
+
+void insertion_sort(struct App* app) {
+    app->current_algorithm = "Insertion Sort";
+    load_media(app);
+
+    for(int i = 0; i < LINES_SIZE; ++i) {
+        int j = i;
+
+        while(j > 0 && app->lines[j].val < app->lines[j-1].val) {
+            swap(&app->lines[j].val, &app->lines[j-1].val);
+            j--;
+            process_input(app);
+
+            if(!app->is_running) break;
+        } 
+        render(app, i, j);
+        if(!app->is_running) break;
+        SDL_Delay(42);
     }
 }

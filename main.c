@@ -9,11 +9,17 @@ int main(void) {
     
     setup(&app);
 
-    selection_sort(&app);
+    bubble_sort(&app);
 
     rand_array(&app);
 
-    bubble_sort(&app);
+    insertion_sort(&app);
+    
+    rand_array(&app);
+
+    selection_sort(&app);
+
+    rand_array(&app);
 
     clean_sdl(&app);
 
