@@ -9,6 +9,10 @@ int main(void) {
     
     setup(&app);
 
+    merge_sort(&app, app.lines, 0, LINES_SIZE);
+
+    rand_array(&app);
+
     bubble_sort(&app);
 
     rand_array(&app);

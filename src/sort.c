@@ -66,3 +66,64 @@ void insertion_sort(struct App* app) {
         SDL_Delay(42);
     }
 }
+
+void merge(struct App* app, struct Line* lines, int l, int m, int r) {
+    app->current_algorithm = "Merge Sort";
+    load_media(app);
+    
+    process_input(app);
+    if(!app->is_running) return;
+
+    int n1 = m - l + 1;
+    int n2 = r - m;
+    
+    struct Line L[n1];
+    struct Line R[n2];
+
+    for(int i = 0; i < n1; ++i) {
+        L[i].val = lines[l + i].val;
+    }
+
+    for(int j = 0; j < n2; ++j) {
+        R[j].val = lines[m + 1 + j].val;
+    }
+
+    int i = 0;
+    int j = 0;
+    int k = l;
+
+    render(app, 0, 0);
+    SDL_Delay(42);
+    while(i < n1 && j < n2) {
+        if(L[i].val <= R[j].val) {
+            lines[k].val = L[i].val;
+            i++;
+        } else {
+            lines[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    while(i < n1) {
+        lines[k].val = L[i].val;
+        i++;
+        k++;
+    }
+
+    while(j < n2) {
+        lines[k].val = R[j].val;
+        j++;
+        k++;
+    }
+}
+
+void merge_sort(struct App* app, struct Line* lines, int l, int r) {
+    if(l < r) {
+        int m = (l+r)/2;
+        
+        merge_sort(app, lines, l, m);
+        merge_sort(app, lines, m+1, r);
+        merge(app, lines, l, m, r);
+    }
+}
