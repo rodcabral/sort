@@ -13,23 +13,9 @@ bool init_window(struct App* app) {
         return false;
     }
 
-    app->window = SDL_CreateWindow(
-        "Sort Visualizer",
-        SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED,
-        WINDOW_WIDTH,
-        WINDOW_HEIGHT,
-        SDL_WINDOW_BORDERLESS
-    );
+    int init_wr = SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_BORDERLESS, &app->window, &app->renderer);
 
-    if(!app->window) {
-        fprintf(stderr, "%s\n", SDL_GetError());
-        return false;
-    }
-
-    app->renderer = SDL_CreateRenderer(app->window, -1, 0);
-
-    if(!app->renderer) {
+    if(init_wr != 0) {
         fprintf(stderr, "%s\n", SDL_GetError());
         return false;
     }
@@ -38,9 +24,9 @@ bool init_window(struct App* app) {
 }
 
 void load_media(struct App* app) {
-    SDL_Color title_color = {0xff,0xff,0xff,255};
+    SDL_Color title_color = {0xdd,0xdc,0xe8,255};
 
-    TTF_Font* title_font = TTF_OpenFont("fonts/Futurette-ExtraLight.ttf", 30);
+    TTF_Font* title_font = TTF_OpenFont("fonts/Futurette-ExtraLight.ttf", 28);
 
     if(!title_font) {
         fprintf(stderr, "%s\n", TTF_GetError());
@@ -70,7 +56,7 @@ void setup(struct App* app) {
     app->container.x = (WINDOW_WIDTH / 2) - (CONTAINER_WIDTH / 2);
     app->container.y = (WINDOW_HEIGHT / 2) - (CONTAINER_HEIGHT / 2);
     
-    rand_array(app);
+    shuffle_arr(app);
 
     load_media(app);
 }
@@ -94,14 +80,15 @@ void process_input(struct App* app) {
     }
 }
 
-void render(struct App* app, int r, int b) {
+void render(struct App* app) {
+    load_media(app);
     SDL_SetRenderDrawColor(app->renderer, 0x14, 0x14, 0x13, 255);
     SDL_RenderClear(app->renderer);
 
-    SDL_RenderCopy(app->renderer, app->title_texture, NULL, &app->title_props);
+    SDL_RenderCopyF(app->renderer, app->title_texture, NULL, &app->title_props);
     
-    SDL_SetRenderDrawColor(app->renderer, 0xff, 0xff, 0xff, 255);
-    SDL_RenderDrawRect(app->renderer, &app->container);
+    SDL_SetRenderDrawColor(app->renderer, 0xdd, 0xdc, 0xe8, 255);
+    SDL_RenderDrawRectF(app->renderer, &app->container);
 
     int gap = 1;
     
@@ -114,18 +101,24 @@ void render(struct App* app, int r, int b) {
         
         curr_x += app->lines[i].rect.w + gap;
 
-        if(i == r) {
-            SDL_SetRenderDrawColor(app->renderer, 0xff, 0x00, 0x00, 255);
-        } else if(i == b) {
-            SDL_SetRenderDrawColor(app->renderer, 0x00, 0x00, 0xff, 255);
+        if(app->is_sorted) {
+            SDL_SetRenderDrawColor(app->renderer, 0x24, 0xff, 0x45, 255);
         } else {
-            SDL_SetRenderDrawColor(app->renderer, 0xff, 0xff, 0xff, 255);
+            SDL_SetRenderDrawColor(app->renderer, 0xdd, 0xdc, 0xe8, 255);
         }
 
-        SDL_RenderFillRect(app->renderer, &app->lines[i].rect);
+        SDL_RenderFillRectF(app->renderer, &app->lines[i].rect);
     }
 
+    app->is_sorted = is_array_sorted(app);
+    process_input(app);
+    if(!app->is_running) {
+        clean_sdl(app);
+        exit(1);
+    };
+
     SDL_RenderPresent(app->renderer);
+    SDL_Delay(16);
 }
 
 void clean_sdl(struct App* app) {

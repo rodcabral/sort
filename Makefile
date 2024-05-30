@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -fsanitize=address
+CFLAGS = -Wall -Wextra -fno-stack-protector -O3
 INCLUDE = -Iinclude
 LIBS = -lSDL2 -lSDL2_ttf
 

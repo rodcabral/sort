@@ -6,6 +6,6 @@
 
 bool is_array_sorted(struct App* app);
 
-void rand_array(struct App* app);
+void shuffle_arr(struct App* app);
 
 #endif

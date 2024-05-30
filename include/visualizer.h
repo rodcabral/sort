@@ -9,16 +9,16 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#define WINDOW_WIDTH 1600
-#define WINDOW_HEIGHT 900
+#define WINDOW_WIDTH 850
+#define WINDOW_HEIGHT 600
 
-#define CONTAINER_WIDTH 1200
-#define CONTAINER_HEIGHT 650
+#define CONTAINER_WIDTH 750
+#define CONTAINER_HEIGHT 400
 
-#define LINES_SIZE 300
+#define LINES_SIZE 150
 
 struct Line {
-    SDL_Rect rect;
+    SDL_FRect rect;
     int val;
 };
 
@@ -29,14 +29,16 @@ struct App {
     SDL_Renderer* renderer;
 
     // Container
-    SDL_Rect container;
+    SDL_FRect container;
 
     // Current Algorithm Title
     SDL_Texture *title_texture;
-    SDL_Rect title_props;
+    SDL_FRect title_props;
     const char* current_algorithm;
 
     struct Line lines[LINES_SIZE];
+
+    bool is_sorted;
 };
 
 bool init_window(struct App* app);
@@ -47,7 +49,7 @@ void setup(struct App* app);
 
 void process_input(struct App* app);
 
-void render(struct App* app, int i, int j);
+void render(struct App* app);
 
 void clean_sdl(struct App* app);
 

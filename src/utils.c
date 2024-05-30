@@ -10,8 +10,9 @@ bool is_array_sorted(struct App* app) {
     return true;
 }
 
-void rand_array(struct App* app) {
+void shuffle_arr(struct App* app) {
+    int lim = app->container.h;
     for(int i = 0; i < LINES_SIZE; ++i) {
-        app->lines[i].val = rand() % app->container.h;
+        app->lines[i].val = ((float)rand()/(float)(RAND_MAX)) * lim;
     }
 }

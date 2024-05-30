@@ -8,24 +8,22 @@ int main(void) {
     struct App app;
     
     setup(&app);
-
+    
+    // Merge Sort
     merge_sort(&app, app.lines, 0, LINES_SIZE);
 
-    rand_array(&app);
-
-    bubble_sort(&app);
-
-    rand_array(&app);
-
+    // Insertion sort
+    shuffle_arr(&app);
     insertion_sort(&app);
-    
-    rand_array(&app);
 
+    // Bubble Sort
+    shuffle_arr(&app);
+    bubble_sort(&app);
+    
+    // Selection Sort
+    shuffle_arr(&app);
     selection_sort(&app);
 
-    rand_array(&app);
-
     clean_sdl(&app);
-
     return 0;
 }

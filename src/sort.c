@@ -1,5 +1,6 @@
 #include "visualizer.h"
 #include <sort.h>
+#include <unistd.h>
 
 void swap(int *x, int *y) {
     int aux = *x;
@@ -9,47 +10,46 @@ void swap(int *x, int *y) {
 
 void bubble_sort(struct App* app) {
     app->current_algorithm = "Bubble Sort";
-    load_media(app);
-    int b;
     for(int i = 0; i < LINES_SIZE; ++i) {
         for(int j = 0; j < LINES_SIZE - 1; ++j) {
             if(app->lines[j].val > app->lines[j + 1].val) {
-                b = j;
                 swap(&app->lines[j].val, &app->lines[j+1].val);
             }
         }
-        process_input(app);
+        render(app);
         SDL_Delay(42);
-        render(app, i, b);
-        if(!app->is_running) break;
+    }
+
+    if(app->is_sorted) {
+        render(app);
+        sleep(1);
     }
 }
 
 void selection_sort(struct App* app) {
     app->current_algorithm = "Selection Sort";
-    load_media(app);
-    int b;
     for(int i = 0; i < LINES_SIZE; ++i) {
         int min = i;
         int data_min = app->lines[i].val;
         for(int j = i; j < LINES_SIZE; ++j) {
             if(app->lines[j].val < data_min) {
-                b = j;
                 min = j;
                 data_min = app->lines[j].val;
             }
         }
         swap(&app->lines[i].val, &app->lines[min].val);
-        process_input(app);
-        render(app, i, b);
+        render(app);
         SDL_Delay(42);
-        if(!app->is_running) break;
+    }
+
+    if(app->is_sorted) {
+        render(app);
+        sleep(1);
     }
 }
 
 void insertion_sort(struct App* app) {
     app->current_algorithm = "Insertion Sort";
-    load_media(app);
 
     for(int i = 0; i < LINES_SIZE; ++i) {
         int j = i;
@@ -57,22 +57,22 @@ void insertion_sort(struct App* app) {
         while(j > 0 && app->lines[j].val < app->lines[j-1].val) {
             swap(&app->lines[j].val, &app->lines[j-1].val);
             j--;
-            process_input(app);
 
+            process_input(app);
             if(!app->is_running) break;
         } 
-        render(app, i, j);
-        if(!app->is_running) break;
+        render(app);
         SDL_Delay(42);
+    }
+
+    if(app->is_sorted) {
+        render(app);
+        sleep(1);
     }
 }
 
 void merge(struct App* app, struct Line* lines, int l, int m, int r) {
     app->current_algorithm = "Merge Sort";
-    load_media(app);
-    
-    process_input(app);
-    if(!app->is_running) return;
 
     int n1 = m - l + 1;
     int n2 = r - m;
@@ -92,8 +92,6 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
     int j = 0;
     int k = l;
 
-    render(app, 0, 0);
-    SDL_Delay(42);
     while(i < n1 && j < n2) {
         if(L[i].val <= R[j].val) {
             lines[k].val = L[i].val;
@@ -103,6 +101,7 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
             j++;
         }
         k++;
+        render(app);
     }
 
     while(i < n1) {
@@ -115,7 +114,7 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
         lines[k].val = R[j].val;
         j++;
         k++;
-    }
+    } 
 }
 
 void merge_sort(struct App* app, struct Line* lines, int l, int r) {
@@ -125,5 +124,17 @@ void merge_sort(struct App* app, struct Line* lines, int l, int r) {
         merge_sort(app, lines, l, m);
         merge_sort(app, lines, m+1, r);
         merge(app, lines, l, m, r);
+        if(app->is_sorted) {
+            render(app);
+            sleep(1);
+            return;
+        }
     }
+
+    if(app->is_sorted) {
+        render(app);
+        sleep(1);
+        return;
+    }
+
 }
