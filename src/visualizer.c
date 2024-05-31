@@ -27,11 +27,11 @@ bool init_window(struct App* app) {
 void load_media(struct App* app) {
 
     SDL_Color txt_color = {0xdd,0xdc,0xe8,255};
-    // Title
-    app->title_props.x = app->container.x;
-    app->title_props.y = app->container.y - 40;
     
-    app->title_texture = create_text(app, app->current_algorithm, txt_color, &app->title_props, 28);
+    // Title
+    app->title_texture = create_text(app, app->current_algorithm, txt_color, &app->title_props, 24);
+    app->title_props.x = app->container.x + (app->container.w/2) - app->title_props.w/2;
+    app->title_props.y = app->container.y - 40;
 
     if(!app->title_texture) {
         fprintf(stderr, "%s\n", SDL_GetError());
@@ -39,7 +39,7 @@ void load_media(struct App* app) {
     }
 
     // Array Access
-    app->access_title_texture = create_text(app, "array access: ", txt_color, &app->access_title_props, 15);
+    app->access_title_texture = create_text(app, "array accesses: ", txt_color, &app->access_title_props, 15);
     app->access_title_props.x = app->status_container.x + 10;
     app->access_title_props.y = app->status_container.y + 2;
 
