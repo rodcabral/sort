@@ -41,6 +41,9 @@ struct App {
     // Status
     SDL_FRect status_container;
 
+    SDL_Texture* access_title_texture;
+    SDL_FRect access_title_props;
+
     SDL_Texture* access_texture;
     SDL_FRect access_props;
     int access;
