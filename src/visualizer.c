@@ -149,6 +149,8 @@ void render(struct App* app) {
 
 void clean_sdl(struct App* app) {
     SDL_DestroyTexture(app->title_texture);
+    SDL_DestroyTexture(app->access_title_texture);
+    SDL_DestroyTexture(app->access_texture);
 
     SDL_DestroyRenderer(app->renderer);
     SDL_DestroyWindow(app->window);
