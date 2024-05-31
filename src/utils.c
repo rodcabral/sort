@@ -16,3 +16,34 @@ void shuffle_arr(struct App* app) {
         app->lines[i].val = ((float)rand()/(float)(RAND_MAX)) * lim;
     }
 }
+
+SDL_Texture* create_text(struct App* app, const char* txt, SDL_Color color, SDL_FRect* props, int size) {
+    TTF_Font* font = TTF_OpenFont("fonts/Futurette-ExtraLight.ttf", size);
+
+    if(!font) {
+        fprintf(stderr, "%s\n", TTF_GetError());
+        return NULL;
+    }
+
+    SDL_Surface *surface = TTF_RenderText_Blended(font, txt, color);
+
+    if(!surface) {
+        fprintf(stderr, "%s\n", SDL_GetError());
+        return NULL;
+    }
+
+    props->w = surface->w;
+    props->h = surface->h;
+    
+    SDL_Texture *new_texture = SDL_CreateTextureFromSurface(app->renderer, surface);
+
+    if(!new_texture) {
+        fprintf(stderr, "%s\n", SDL_GetError());
+        return NULL;
+    }
+
+    SDL_FreeSurface(surface);
+    TTF_CloseFont(font);
+
+    return new_texture;
+}

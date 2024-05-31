@@ -24,26 +24,19 @@ bool init_window(struct App* app) {
 }
 
 void load_media(struct App* app) {
+
+    // Title
     SDL_Color title_color = {0xdd,0xdc,0xe8,255};
+    app->title_props.x = app->container.x;
+    app->title_props.y = app->container.y - 40;
+    
+    app->title_texture = create_text(app, app->current_algorithm, title_color, &app->title_props, 28);
 
-    TTF_Font* title_font = TTF_OpenFont("fonts/Futurette-ExtraLight.ttf", 28);
-
-    if(!title_font) {
-        fprintf(stderr, "%s\n", TTF_GetError());
+    if(!app->title_texture) {
+        fprintf(stderr, "%s\n", SDL_GetError());
         return;
     }
 
-    SDL_Surface *title_surface = TTF_RenderText_Blended(title_font, app->current_algorithm, title_color);
-
-    app->title_props.x = app->container.x;
-    app->title_props.y = app->container.y - 40;
-    app->title_props.w = title_surface->w;
-    app->title_props.h = title_surface->h;
-
-    app->title_texture = SDL_CreateTextureFromSurface(app->renderer, title_surface);
-
-    SDL_FreeSurface(title_surface);
-    TTF_CloseFont(title_font);
 }
 
 void setup(struct App* app) {
