@@ -46,6 +46,15 @@ void load_media(struct App* app) {
         fprintf(stderr, "%s\n", SDL_GetError());
         return;
     }
+
+    app->access_texture = create_text(app, "100", txt_color, &app->access_props, 15);
+    app->access_props.x = (app->access_title_props.x + app->access_title_props.w) + 5;
+    app->access_props.y = app->access_title_props.y;
+
+    if(!app->access_texture) {
+        fprintf(stderr, "%s\n", SDL_GetError());
+        return;
+    }
 }
 
 void setup(struct App* app) {
@@ -105,6 +114,7 @@ void render(struct App* app) {
     SDL_RenderFillRectF(app->renderer, &app->status_container);
 
     SDL_RenderCopyF(app->renderer, app->access_title_texture, NULL, &app->access_title_props);
+    SDL_RenderCopyF(app->renderer, app->access_texture, NULL, &app->access_props);
 
     int gap = 1;
     
