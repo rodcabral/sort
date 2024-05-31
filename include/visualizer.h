@@ -38,6 +38,13 @@ struct App {
 
     struct Line lines[LINES_SIZE];
 
+    // Status
+    SDL_FRect status_container;
+
+    SDL_Texture* access_texture;
+    SDL_FRect access_props;
+    int access;
+
     bool is_sorted;
 };
 

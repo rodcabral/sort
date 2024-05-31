@@ -51,10 +51,17 @@ void setup(struct App* app) {
     
     app->current_algorithm = "Bubble Sort";
 
+    // Container
     app->container.w = CONTAINER_WIDTH;
     app->container.h = CONTAINER_HEIGHT;
     app->container.x = (WINDOW_WIDTH / 2) - (CONTAINER_WIDTH / 2);
     app->container.y = (WINDOW_HEIGHT / 2) - (CONTAINER_HEIGHT / 2);
+
+    // Status
+    app->status_container.w = WINDOW_WIDTH;
+    app->status_container.h = 20;
+    app->status_container.x = 0;
+    app->status_container.y = WINDOW_HEIGHT - app->status_container.h;
     
     shuffle_arr(app);
 
@@ -87,8 +94,13 @@ void render(struct App* app) {
 
     SDL_RenderCopyF(app->renderer, app->title_texture, NULL, &app->title_props);
     
+    // Container
     SDL_SetRenderDrawColor(app->renderer, 0xdd, 0xdc, 0xe8, 255);
     SDL_RenderDrawRectF(app->renderer, &app->container);
+
+    // Status Container
+    SDL_SetRenderDrawColor(app->renderer, 0x00, 0x00, 0x00, 255);
+    SDL_RenderFillRectF(app->renderer, &app->status_container);
 
     int gap = 1;
     

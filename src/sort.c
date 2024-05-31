@@ -136,5 +136,4 @@ void merge_sort(struct App* app, struct Line* lines, int l, int r) {
         sleep(1);
         return;
     }
-
 }
