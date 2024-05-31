@@ -14,6 +14,7 @@ void bubble_sort(struct App* app) {
         for(int j = 0; j < LINES_SIZE - 1; ++j) {
             if(app->lines[j].val > app->lines[j + 1].val) {
                 swap(&app->lines[j].val, &app->lines[j+1].val);
+                app->access++;
             }
         }
         render(app);
@@ -22,6 +23,7 @@ void bubble_sort(struct App* app) {
 
     if(app->is_sorted) {
         render(app);
+        app->access = 0;
         sleep(1);
     }
 }
@@ -36,14 +38,17 @@ void selection_sort(struct App* app) {
                 min = j;
                 data_min = app->lines[j].val;
             }
+            app->access++;
         }
         swap(&app->lines[i].val, &app->lines[min].val);
+        app->access++;
         render(app);
         SDL_Delay(42);
     }
 
     if(app->is_sorted) {
         render(app);
+        app->access = 0;
         sleep(1);
     }
 }
@@ -58,6 +63,8 @@ void insertion_sort(struct App* app) {
             swap(&app->lines[j].val, &app->lines[j-1].val);
             j--;
 
+            app->access++;
+                
             process_input(app);
             if(!app->is_running) break;
         } 
@@ -67,6 +74,7 @@ void insertion_sort(struct App* app) {
 
     if(app->is_sorted) {
         render(app);
+        app->access = 0;
         sleep(1);
     }
 }
@@ -96,9 +104,11 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
         if(L[i].val <= R[j].val) {
             lines[k].val = L[i].val;
             i++;
+            app->access++;
         } else {
             lines[k] = R[j];
             j++;
+            app->access++;
         }
         k++;
         render(app);
@@ -108,13 +118,22 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
         lines[k].val = L[i].val;
         i++;
         k++;
+        app->access++;
     }
 
     while(j < n2) {
         lines[k].val = R[j].val;
         j++;
         k++;
+        app->access++;
     } 
+
+    if(app->is_sorted) {
+        render(app);
+        app->access = 0;
+        sleep(1);
+        return;
+    }
 }
 
 void merge_sort(struct App* app, struct Line* lines, int l, int r) {
@@ -126,6 +145,7 @@ void merge_sort(struct App* app, struct Line* lines, int l, int r) {
         merge(app, lines, l, m, r);
         if(app->is_sorted) {
             render(app);
+            app->access = 0;
             sleep(1);
             return;
         }
@@ -133,6 +153,7 @@ void merge_sort(struct App* app, struct Line* lines, int l, int r) {
 
     if(app->is_sorted) {
         render(app);
+        app->access = 0;
         sleep(1);
         return;
     }

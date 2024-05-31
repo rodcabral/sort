@@ -1,3 +1,4 @@
+#include <SDL2/SDL_stdinc.h>
 #include <visualizer.h>
 #include <sort.h>
 #include <utils.h>
@@ -38,7 +39,7 @@ void load_media(struct App* app) {
     }
 
     // Array Access
-    app->access_title_texture = create_text(app, "Array access:", txt_color, &app->access_title_props, 15);
+    app->access_title_texture = create_text(app, "array access: ", txt_color, &app->access_title_props, 15);
     app->access_title_props.x = app->status_container.x + 10;
     app->access_title_props.y = app->status_container.y + 2;
 
@@ -47,7 +48,8 @@ void load_media(struct App* app) {
         return;
     }
 
-    app->access_texture = create_text(app, "100", txt_color, &app->access_props, 15);
+    char buff[255];
+    app->access_texture = create_text(app, SDL_itoa(app->access, buff, 10), txt_color, &app->access_props, 15);
     app->access_props.x = (app->access_title_props.x + app->access_title_props.w) + 5;
     app->access_props.y = app->access_title_props.y;
 
@@ -60,7 +62,7 @@ void load_media(struct App* app) {
 void setup(struct App* app) {
     app->is_running = init_window(app);
     
-    app->current_algorithm = "Bubble Sort";
+    app->current_algorithm = "x";
 
     // Container
     app->container.w = CONTAINER_WIDTH;
@@ -73,6 +75,8 @@ void setup(struct App* app) {
     app->status_container.h = 20;
     app->status_container.x = 0;
     app->status_container.y = WINDOW_HEIGHT - app->status_container.h;
+
+    app->access = 0;
     
     shuffle_arr(app);
 
