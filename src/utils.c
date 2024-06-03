@@ -18,7 +18,7 @@ void shuffle_arr(struct App* app) {
 }
 
 SDL_Texture* create_text(struct App* app, const char* txt, SDL_Color color, SDL_FRect* props, int size) {
-    TTF_Font* font = TTF_OpenFont("fonts/Futurette-ExtraLight.ttf", size);
+    TTF_Font* font = TTF_OpenFont("fonts/Montserrat-Regular.otf", size);
 
     if(!font) {
         fprintf(stderr, "%s\n", TTF_GetError());

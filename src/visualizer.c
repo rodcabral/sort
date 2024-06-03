@@ -29,7 +29,7 @@ void load_media(struct App* app) {
     SDL_Color txt_color = {0xdd,0xdc,0xe8,255};
     
     // Title
-    app->title_texture = create_text(app, app->current_algorithm, txt_color, &app->title_props, 24);
+    app->title_texture = create_text(app, app->current_algorithm, txt_color, &app->title_props, 20);
     app->title_props.x = app->container.x + (app->container.w/2) - app->title_props.w/2;
     app->title_props.y = app->container.y - 40;
 
@@ -39,17 +39,17 @@ void load_media(struct App* app) {
     }
 
     // Array Access
-    app->access_title_texture = create_text(app, "array accesses: ", txt_color, &app->access_title_props, 15);
+    app->access_title_texture = create_text(app, "ac: ", txt_color, &app->access_title_props, 13);
     app->access_title_props.x = app->status_container.x + 10;
-    app->access_title_props.y = app->status_container.y + 2;
+    app->access_title_props.y = app->status_container.y + 1;
 
     if(!app->access_title_texture) {
         fprintf(stderr, "%s\n", SDL_GetError());
         return;
     }
 
-    char buff[255];
-    app->access_texture = create_text(app, SDL_itoa(app->access, buff, 10), txt_color, &app->access_props, 15);
+    char buff[1240];
+    app->access_texture = create_text(app, SDL_itoa(app->access, buff, 10), txt_color, &app->access_props, 13);
     app->access_props.x = (app->access_title_props.x + app->access_title_props.w) + 5;
     app->access_props.y = app->access_title_props.y;
 
