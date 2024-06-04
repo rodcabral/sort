@@ -1,7 +1,7 @@
 #include <utils.h>
 
 bool is_array_sorted(struct App* app) {
-    for(int i = 0; i < LINES_SIZE - 1; ++i) {
+    for(int i = 0; i < app->arr_size - 1; ++i) {
         if(app->lines[i].val > app->lines[i + 1].val) {
             return false;
         }
@@ -10,9 +10,15 @@ bool is_array_sorted(struct App* app) {
     return true;
 }
 
-void shuffle_arr(struct App* app) {
+void shuffle_arr(struct App* app, int n) {
+    app->arr_size = n;
+    
+    free(app->lines);
+
+    app->lines = malloc(sizeof(struct Line) * app->arr_size);
+
     int lim = app->container.h;
-    for(int i = 0; i < LINES_SIZE; ++i) {
+    for(int i = 0; i < app->arr_size; ++i) {
         app->lines[i].val = ((float)rand()/(float)(RAND_MAX)) * lim;
     }
 }

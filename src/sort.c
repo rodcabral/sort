@@ -10,8 +10,8 @@ void swap(int *x, int *y) {
 
 void bubble_sort(struct App* app) {
     app->current_algorithm = "Bubble Sort";
-    for(int i = 0; i < LINES_SIZE; ++i) {
-        for(int j = 0; j < LINES_SIZE - i - 1; ++j) {
+    for(int i = 0; i < app->arr_size; ++i) {
+        for(int j = 0; j < app->arr_size - i - 1; ++j) {
             if(app->lines[j].val > app->lines[j + 1].val) {
                 swap(&app->lines[j].val, &app->lines[j+1].val);
                 app->access++;
@@ -29,19 +29,20 @@ void bubble_sort(struct App* app) {
 
 void selection_sort(struct App* app) {
     app->current_algorithm = "Selection Sort";
-    for(int i = 0; i < LINES_SIZE; ++i) {
+    for(int i = 0; i < app->arr_size; ++i) {
         int min = i;
         int data_min = app->lines[i].val;
-        for(int j = i; j < LINES_SIZE; ++j) {
+        for(int j = i; j < app->arr_size; ++j) {
             if(app->lines[j].val < data_min) {
                 min = j;
                 data_min = app->lines[j].val;
+                render(app, j);
             }
             app->access++;
-            render(app, j);
         }
         swap(&app->lines[i].val, &app->lines[min].val);
         app->access++;
+        SDL_Delay(8);
     }
 
     if(app->is_sorted) {
@@ -54,7 +55,7 @@ void selection_sort(struct App* app) {
 void insertion_sort(struct App* app) {
     app->current_algorithm = "Insertion Sort";
 
-    for(int i = 0; i < LINES_SIZE; ++i) {
+    for(int i = 0; i < app->arr_size; ++i) {
         int j = i;
 
         while(j > 0 && app->lines[j].val < app->lines[j-1].val) {
@@ -65,7 +66,7 @@ void insertion_sort(struct App* app) {
                 
             process_input(app);
             if(!app->is_running) break;
-            render(app, j);
+            render(app, j-1);
         } 
     }
 

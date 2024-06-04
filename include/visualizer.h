@@ -9,13 +9,11 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#define WINDOW_WIDTH 850
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 900
+#define WINDOW_HEIGHT 650
 
-#define CONTAINER_WIDTH 750
-#define CONTAINER_HEIGHT 400
-
-#define LINES_SIZE 150
+#define CONTAINER_WIDTH 800
+#define CONTAINER_HEIGHT 450
 
 struct Line {
     SDL_FRect rect;
@@ -36,7 +34,8 @@ struct App {
     SDL_FRect title_props;
     const char* current_algorithm;
 
-    struct Line lines[LINES_SIZE];
+    int arr_size;
+    struct Line * lines;
 
     // Status
     SDL_FRect status_container;

@@ -9,19 +9,21 @@ int main(void) {
     
     setup(&app);
 
+    // Merge Sort
+    shuffle_arr(&app, 200);
+    merge_sort(&app, app.lines, 0, app.arr_size);
+
     // Bubble Sort
+    shuffle_arr(&app, 100);
     bubble_sort(&app);
 
-    // Merge Sort
-    shuffle_arr(&app);
-    merge_sort(&app, app.lines, 0, LINES_SIZE);
-    // Insertion sort
-    shuffle_arr(&app);
-    insertion_sort(&app);
-
     // Selection Sort
-    shuffle_arr(&app);
+    shuffle_arr(&app, 200);
     selection_sort(&app);
+    
+    // Insertion sort
+    shuffle_arr(&app, 100);
+    insertion_sort(&app);
 
     clean_sdl(&app);
     return 0;

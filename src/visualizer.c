@@ -77,8 +77,6 @@ void setup(struct App* app) {
     app->status_container.y = WINDOW_HEIGHT - app->status_container.h;
 
     app->access = 0;
-    
-    shuffle_arr(app);
 
     load_media(app);
 }
@@ -123,9 +121,9 @@ void render(struct App* app, int r) {
     int gap = 1;
     
     int curr_x = app->container.x;
-    for(int i = 0; i < LINES_SIZE; ++i) {
+    for(int i = 0; i < app->arr_size; ++i) {
         app->lines[i].rect.y = app->container.y + app->container.h;
-        app->lines[i].rect.w = (app->container.w / LINES_SIZE) - gap;
+        app->lines[i].rect.w = (app->container.w / app->arr_size) - gap;
         app->lines[i].rect.x = curr_x;
         app->lines[i].rect.h = -(app->lines[i].val);
         
@@ -153,6 +151,8 @@ void render(struct App* app, int r) {
 }
 
 void clean_sdl(struct App* app) {
+    free(app->lines);
+
     SDL_DestroyTexture(app->title_texture);
     SDL_DestroyTexture(app->access_title_texture);
     SDL_DestroyTexture(app->access_texture);
