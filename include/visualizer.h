@@ -59,7 +59,7 @@ void setup(struct App* app);
 
 void process_input(struct App* app);
 
-void render(struct App* app);
+void render(struct App* app, int r);
 
 void clean_sdl(struct App* app);
 

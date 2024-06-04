@@ -8,18 +8,17 @@ int main(void) {
     struct App app;
     
     setup(&app);
-    
-    // Merge Sort
-    merge_sort(&app, app.lines, 0, LINES_SIZE);
 
+    // Bubble Sort
+    bubble_sort(&app);
+
+    // Merge Sort
+    shuffle_arr(&app);
+    merge_sort(&app, app.lines, 0, LINES_SIZE);
     // Insertion sort
     shuffle_arr(&app);
     insertion_sort(&app);
 
-    // Bubble Sort
-    shuffle_arr(&app);
-    bubble_sort(&app);
-    
     // Selection Sort
     shuffle_arr(&app);
     selection_sort(&app);

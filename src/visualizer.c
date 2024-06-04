@@ -102,12 +102,12 @@ void process_input(struct App* app) {
     }
 }
 
-void render(struct App* app) {
-    load_media(app);
+void render(struct App* app, int r) {
+    //load_media(app);
     SDL_SetRenderDrawColor(app->renderer, 0x14, 0x14, 0x13, 255);
     SDL_RenderClear(app->renderer);
 
-    SDL_RenderCopyF(app->renderer, app->title_texture, NULL, &app->title_props);
+    //SDL_RenderCopyF(app->renderer, app->title_texture, NULL, &app->title_props);
     
     // Container
     SDL_SetRenderDrawColor(app->renderer, 0xdd, 0xdc, 0xe8, 255);
@@ -117,8 +117,8 @@ void render(struct App* app) {
     SDL_SetRenderDrawColor(app->renderer, 0x00, 0x00, 0x00, 255);
     SDL_RenderFillRectF(app->renderer, &app->status_container);
 
-    SDL_RenderCopyF(app->renderer, app->access_title_texture, NULL, &app->access_title_props);
-    SDL_RenderCopyF(app->renderer, app->access_texture, NULL, &app->access_props);
+    //SDL_RenderCopyF(app->renderer, app->access_title_texture, NULL, &app->access_title_props);
+    //SDL_RenderCopyF(app->renderer, app->access_texture, NULL, &app->access_props);
 
     int gap = 1;
     
@@ -133,6 +133,8 @@ void render(struct App* app) {
 
         if(app->is_sorted) {
             SDL_SetRenderDrawColor(app->renderer, 0x24, 0xff, 0x45, 255);
+        } else if(i == r + gap){
+            SDL_SetRenderDrawColor(app->renderer, 0xff, 0x00, 0x00, 255);
         } else {
             SDL_SetRenderDrawColor(app->renderer, 0xdd, 0xdc, 0xe8, 255);
         }
@@ -148,7 +150,6 @@ void render(struct App* app) {
     };
 
     SDL_RenderPresent(app->renderer);
-    SDL_Delay(16);
 }
 
 void clean_sdl(struct App* app) {
