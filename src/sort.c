@@ -10,11 +10,11 @@ void swap(int *x, int *y) {
 
 void bubble_sort(struct App* app) {
     app->current_algorithm = "Bubble Sort";
+    load_media(app);
     for(int i = 0; i < app->arr_size; ++i) {
         for(int j = 0; j < app->arr_size - i - 1; ++j) {
             if(app->lines[j].val > app->lines[j + 1].val) {
                 swap(&app->lines[j].val, &app->lines[j+1].val);
-                app->access++;
                 render(app, j);
             }
         }
@@ -22,12 +22,12 @@ void bubble_sort(struct App* app) {
 
     app->is_sorted = true;
     render(app, 0);
-    app->access = 0;
     sleep(1);
 }
 
 void selection_sort(struct App* app) {
     app->current_algorithm = "Selection Sort";
+    load_media(app);
     for(int i = 0; i < app->arr_size; ++i) {
         int min = i;
         int data_min = app->lines[i].val;
@@ -37,22 +37,20 @@ void selection_sort(struct App* app) {
                 data_min = app->lines[j].val;
                 render(app, j);
             }
-            app->access++;
         }
         swap(&app->lines[i].val, &app->lines[min].val);
-        app->access++;
 
         SDL_Delay(32);
     }
 
     app->is_sorted = true;
     render(app, 0);
-    app->access = 0;
     sleep(1);
 }
 
 void insertion_sort(struct App* app) {
     app->current_algorithm = "Insertion Sort";
+    load_media(app);
 
     for(int i = 0; i < app->arr_size; ++i) {
         int j = i;
@@ -61,8 +59,6 @@ void insertion_sort(struct App* app) {
             swap(&app->lines[j].val, &app->lines[j-1].val);
             j--;
 
-            app->access++;
-                
             process_input(app);
             if(!app->is_running) break;
             render(app, j-1);
@@ -71,7 +67,6 @@ void insertion_sort(struct App* app) {
 
     app->is_sorted = true;
     render(app, 0);
-    app->access = 0;
     sleep(1);
 }
 
@@ -100,11 +95,9 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
         if(L[i].val <= R[j].val) {
             lines[k].val = L[i].val;
             i++;
-            app->access++;
         } else {
             lines[k] = R[j];
             j++;
-            app->access++;
         }
         k++;
         render(app, k);
@@ -115,14 +108,12 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
         lines[k].val = L[i].val;
         i++;
         k++;
-        app->access++;
     }
 
     while(j < n2) {
         lines[k].val = R[j].val;
         j++;
         k++;
-        app->access++;
     } 
 }
 

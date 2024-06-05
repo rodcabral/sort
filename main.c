@@ -11,6 +11,9 @@ int main(void) {
 
     // Merge Sort
     shuffle_arr(&app, 200);
+
+    app.current_algorithm = "Merge Sort";
+    load_media(&app);
     merge_sort(&app, app.lines, 0, app.arr_size);
     if(app.is_sorted) {
         render(&app, 0);

@@ -25,7 +25,6 @@ bool init_window(struct App* app) {
 }
 
 void load_media(struct App* app) {
-
     SDL_Color txt_color = {0xdd,0xdc,0xe8,255};
     
     // Title
@@ -38,22 +37,22 @@ void load_media(struct App* app) {
         return;
     }
 
-    // Array Access
-    app->access_title_texture = create_text(app, "ac: ", txt_color, &app->access_title_props, 13);
-    app->access_title_props.x = app->status_container.x + 10;
-    app->access_title_props.y = app->status_container.y + 1;
+    // Length info
+    app->length_title_texture = create_text(app, "length: ", txt_color, &app->length_title_props, 13);
+    app->length_title_props.x = app->status_container.x + 10;
+    app->length_title_props.y = app->status_container.y + 1;
 
-    if(!app->access_title_texture) {
+    if(!app->length_title_texture) {
         fprintf(stderr, "%s\n", SDL_GetError());
         return;
     }
 
     char buff[1240];
-    app->access_texture = create_text(app, SDL_itoa(app->access, buff, 10), txt_color, &app->access_props, 13);
-    app->access_props.x = (app->access_title_props.x + app->access_title_props.w) + 5;
-    app->access_props.y = app->access_title_props.y;
+    app->length_texture = create_text(app, SDL_itoa(app->arr_size, buff, 10), txt_color, &app->length_props, 13);
+    app->length_props.x = (app->length_title_props.x + app->length_title_props.w) + 5;
+    app->length_props.y = app->length_title_props.y;
 
-    if(!app->access_texture) {
+    if(!app->length_texture) {
         fprintf(stderr, "%s\n", SDL_GetError());
         return;
     }
@@ -75,8 +74,6 @@ void setup(struct App* app) {
     app->status_container.h = 20;
     app->status_container.x = 0;
     app->status_container.y = WINDOW_HEIGHT - app->status_container.h;
-
-    app->access = 0;
 
     load_media(app);
 }
@@ -101,11 +98,10 @@ void process_input(struct App* app) {
 }
 
 void render(struct App* app, int r) {
-    //load_media(app);
     SDL_SetRenderDrawColor(app->renderer, 0x14, 0x14, 0x13, 255);
     SDL_RenderClear(app->renderer);
 
-    //SDL_RenderCopyF(app->renderer, app->title_texture, NULL, &app->title_props);
+    SDL_RenderCopyF(app->renderer, app->title_texture, NULL, &app->title_props);
     
     // Container
     SDL_SetRenderDrawColor(app->renderer, 0xdd, 0xdc, 0xe8, 255);
@@ -115,8 +111,8 @@ void render(struct App* app, int r) {
     SDL_SetRenderDrawColor(app->renderer, 0x00, 0x00, 0x00, 255);
     SDL_RenderFillRectF(app->renderer, &app->status_container);
 
-    //SDL_RenderCopyF(app->renderer, app->access_title_texture, NULL, &app->access_title_props);
-    //SDL_RenderCopyF(app->renderer, app->access_texture, NULL, &app->access_props);
+    SDL_RenderCopyF(app->renderer, app->length_title_texture, NULL, &app->length_title_props);
+    SDL_RenderCopyF(app->renderer, app->length_texture, NULL, &app->length_props);
 
     int gap = 1;
     
@@ -154,8 +150,8 @@ void clean_sdl(struct App* app) {
     free(app->lines);
 
     SDL_DestroyTexture(app->title_texture);
-    SDL_DestroyTexture(app->access_title_texture);
-    SDL_DestroyTexture(app->access_texture);
+    SDL_DestroyTexture(app->length_title_texture);
+    SDL_DestroyTexture(app->length_texture);
 
     SDL_DestroyRenderer(app->renderer);
     SDL_DestroyWindow(app->window);

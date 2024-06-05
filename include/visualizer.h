@@ -40,12 +40,11 @@ struct App {
     // Status
     SDL_FRect status_container;
 
-    SDL_Texture* access_title_texture;
-    SDL_FRect access_title_props;
+    SDL_Texture* length_title_texture;
+    SDL_FRect length_title_props;
 
-    SDL_Texture* access_texture;
-    SDL_FRect access_props;
-    int access;
+    SDL_Texture* length_texture;
+    SDL_FRect length_props;
 
     bool is_sorted;
 };
