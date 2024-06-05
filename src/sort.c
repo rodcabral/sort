@@ -20,11 +20,10 @@ void bubble_sort(struct App* app) {
         }
     }
 
-    if(app->is_sorted) {
-        render(app, 0);
-        app->access = 0;
-        sleep(1);
-    }
+    app->is_sorted = true;
+    render(app, 0);
+    app->access = 0;
+    sleep(1);
 }
 
 void selection_sort(struct App* app) {
@@ -42,14 +41,14 @@ void selection_sort(struct App* app) {
         }
         swap(&app->lines[i].val, &app->lines[min].val);
         app->access++;
-        SDL_Delay(8);
+
+        SDL_Delay(32);
     }
 
-    if(app->is_sorted) {
-        render(app, 0);
-        app->access = 0;
-        sleep(1);
-    }
+    app->is_sorted = true;
+    render(app, 0);
+    app->access = 0;
+    sleep(1);
 }
 
 void insertion_sort(struct App* app) {
@@ -70,11 +69,10 @@ void insertion_sort(struct App* app) {
         } 
     }
 
-    if(app->is_sorted) {
-        render(app, 0);
-        app->access = 0;
-        sleep(1);
-    }
+    app->is_sorted = true;
+    render(app, 0);
+    app->access = 0;
+    sleep(1);
 }
 
 void merge(struct App* app, struct Line* lines, int l, int m, int r) {
@@ -109,7 +107,8 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
             app->access++;
         }
         k++;
-        render(app, 0);
+        render(app, k);
+        SDL_Delay(8);
     }
 
     while(i < n1) {
@@ -117,7 +116,6 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
         i++;
         k++;
         app->access++;
-        render(app, 0);
     }
 
     while(j < n2) {
@@ -125,15 +123,7 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
         j++;
         k++;
         app->access++;
-        render(app, 0);
     } 
-
-    if(app->is_sorted) {
-        render(app, 0);
-        app->access = 0;
-        sleep(1);
-        return;
-    }
 }
 
 void merge_sort(struct App* app, struct Line* lines, int l, int r) {
@@ -143,18 +133,5 @@ void merge_sort(struct App* app, struct Line* lines, int l, int r) {
         merge_sort(app, lines, l, m);
         merge_sort(app, lines, m+1, r);
         merge(app, lines, l, m, r);
-        if(app->is_sorted) {
-            render(app, 0);
-            app->access = 0;
-            sleep(1);
-            return;
-        }
-    }
-
-    if(app->is_sorted) {
-        render(app, 0);
-        app->access = 0;
-        sleep(1);
-        return;
     }
 }
