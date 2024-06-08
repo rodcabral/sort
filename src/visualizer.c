@@ -129,10 +129,6 @@ void render(struct App* app, int r) {
     SDL_RenderCopyF(app->renderer, app->length_title_texture, NULL, &app->length_title_props);
     SDL_RenderCopyF(app->renderer, app->length_texture, NULL, &app->length_props);
 
-    if(app->is_paused) {
-        SDL_RenderCopyF(app->renderer, app->pause_info_texture, NULL, &app->pause_info_props);
-    }
-
     int gap = 1;
     
     int curr_x = app->container.x;
