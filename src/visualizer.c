@@ -91,6 +91,13 @@ void process_input(struct App* app) {
                     case SDLK_ESCAPE:
                         app->is_running = false;
                         break;
+                    case SDLK_SPACE:
+                        if(app->is_paused) {
+                            app->is_paused = false;
+                        } else {
+                            app->is_paused = true;
+                        }
+                        break;
                 }
                 break;
         }

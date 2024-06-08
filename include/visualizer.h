@@ -22,6 +22,7 @@ struct Line {
 
 struct App {
     bool is_running;
+    bool is_paused;
 
     SDL_Window* window;
     SDL_Renderer* renderer;

@@ -16,6 +16,15 @@ void bubble_sort(struct App* app) {
             if(app->lines[j].val > app->lines[j + 1].val) {
                 swap(&app->lines[j].val, &app->lines[j+1].val);
                 render(app, j);
+                
+                while(app->is_paused) {
+                    process_input(app);
+                    if(!app->is_running) {
+                        clean_sdl(app);
+                        exit(1);
+                    }
+                }
+
                 SDL_Delay(12);
             }
         }
@@ -37,6 +46,15 @@ void selection_sort(struct App* app) {
                 min = j;
                 data_min = app->lines[j].val;
                 render(app, j);
+                
+                while(app->is_paused) {
+                    process_input(app);
+                    if(!app->is_running) {
+                        clean_sdl(app);
+                        exit(1);
+                    }
+                }
+
                 SDL_Delay(12);
             }
         }
@@ -62,6 +80,15 @@ void insertion_sort(struct App* app) {
             process_input(app);
             if(!app->is_running) break;
             render(app, i-1);
+
+            while(app->is_paused) {
+                process_input(app);
+                if(!app->is_running) {
+                    clean_sdl(app);
+                    exit(1);
+                }
+            } 
+
             SDL_Delay(12);
         } 
     }
@@ -100,6 +127,15 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
         }
         k++;
         render(app, k);
+
+        while(app->is_paused) {
+            process_input(app);
+            if(!app->is_running) {
+                clean_sdl(app);
+                exit(1);
+            }
+        } 
+
         SDL_Delay(12);
     }
 
