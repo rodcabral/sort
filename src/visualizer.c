@@ -56,6 +56,10 @@ void load_media(struct App* app) {
         fprintf(stderr, "%s\n", SDL_GetError());
         return;
     }
+
+    // Pause info
+    SDL_Color paused_color = {0xfa, 0x41, 0x41, 255};
+    app->pause_info_texture = create_text(app, "PAUSED", paused_color, &app->pause_info_props, 22);
 }
 
 void setup(struct App* app) {
@@ -74,6 +78,10 @@ void setup(struct App* app) {
     app->status_container.h = 20;
     app->status_container.x = 0;
     app->status_container.y = WINDOW_HEIGHT - app->status_container.h;
+
+    // Paused
+    app->pause_info_props.x = 20;
+    app->pause_info_props.y = 20;
 
     load_media(app);
 }
@@ -121,6 +129,10 @@ void render(struct App* app, int r) {
     SDL_RenderCopyF(app->renderer, app->length_title_texture, NULL, &app->length_title_props);
     SDL_RenderCopyF(app->renderer, app->length_texture, NULL, &app->length_props);
 
+    if(app->is_paused) {
+        SDL_RenderCopyF(app->renderer, app->pause_info_texture, NULL, &app->pause_info_props);
+    }
+
     int gap = 1;
     
     int curr_x = app->container.x;
@@ -159,6 +171,7 @@ void clean_sdl(struct App* app) {
     SDL_DestroyTexture(app->title_texture);
     SDL_DestroyTexture(app->length_title_texture);
     SDL_DestroyTexture(app->length_texture);
+    SDL_DestroyTexture(app->pause_info_texture);
 
     SDL_DestroyRenderer(app->renderer);
     SDL_DestroyWindow(app->window);

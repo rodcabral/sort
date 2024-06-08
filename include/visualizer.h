@@ -23,6 +23,7 @@ struct Line {
 struct App {
     bool is_running;
     bool is_paused;
+    bool is_sorted;
 
     SDL_Window* window;
     SDL_Renderer* renderer;
@@ -47,7 +48,9 @@ struct App {
     SDL_Texture* length_texture;
     SDL_FRect length_props;
 
-    bool is_sorted;
+    // Pause info
+    SDL_Texture* pause_info_texture;
+    SDL_FRect pause_info_props;
 };
 
 bool init_window(struct App* app);

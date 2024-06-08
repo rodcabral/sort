@@ -23,6 +23,8 @@ void bubble_sort(struct App* app) {
                         clean_sdl(app);
                         exit(1);
                     }
+                    SDL_RenderCopyF(app->renderer, app->pause_info_texture, NULL, &app->pause_info_props);
+                    SDL_RenderPresent(app->renderer);
                 }
 
                 SDL_Delay(12);
@@ -53,6 +55,8 @@ void selection_sort(struct App* app) {
                         clean_sdl(app);
                         exit(1);
                     }
+                    SDL_RenderCopyF(app->renderer, app->pause_info_texture, NULL, &app->pause_info_props);
+                    SDL_RenderPresent(app->renderer);
                 }
 
                 SDL_Delay(12);
@@ -87,6 +91,8 @@ void insertion_sort(struct App* app) {
                     clean_sdl(app);
                     exit(1);
                 }
+                SDL_RenderCopyF(app->renderer, app->pause_info_texture, NULL, &app->pause_info_props);
+                SDL_RenderPresent(app->renderer);
             } 
 
             SDL_Delay(12);
@@ -134,6 +140,8 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
                 clean_sdl(app);
                 exit(1);
             }
+            SDL_RenderCopyF(app->renderer, app->pause_info_texture, NULL, &app->pause_info_props);
+            SDL_RenderPresent(app->renderer);
         } 
 
         SDL_Delay(12);
