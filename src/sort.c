@@ -1,4 +1,4 @@
-#include "visualizer.h"
+#include <visualizer.h>
 #include <sort.h>
 #include <unistd.h>
 
@@ -37,7 +37,7 @@ void selection_sort(struct App* app) {
                 min = j;
                 data_min = app->lines[j].val;
                 render(app, j);
-                SDL_Delay(10);
+                SDL_Delay(12);
             }
         }
         swap(&app->lines[i].val, &app->lines[min].val);
@@ -61,7 +61,7 @@ void insertion_sort(struct App* app) {
 
             process_input(app);
             if(!app->is_running) break;
-            render(app, j-1);
+            render(app, i-1);
             SDL_Delay(12);
         } 
     }
@@ -72,8 +72,6 @@ void insertion_sort(struct App* app) {
 }
 
 void merge(struct App* app, struct Line* lines, int l, int m, int r) {
-    app->current_algorithm = "Merge Sort";
-
     int n1 = m - l + 1;
     int n2 = r - m;
     
