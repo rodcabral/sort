@@ -47,7 +47,7 @@ void load_media(struct App* app) {
         return;
     }
 
-    char buff[1240];
+    char buff[255];
     app->length_texture = create_text(app, SDL_itoa(app->arr_size, buff, 10), txt_color, &app->length_props, 13);
     app->length_props.x = (app->length_title_props.x + app->length_title_props.w) + 5;
     app->length_props.y = app->length_title_props.y;

@@ -1,6 +1,5 @@
 #include <visualizer.h>
 #include <sort.h>
-#include <unistd.h>
 
 void swap(int *x, int *y) {
     int aux = *x;
@@ -163,6 +162,14 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
 void merge_sort(struct App* app, struct Line* lines, int l, int r) {
     if(l < r) {
         int m = (l+r)/2;
+ 
+        if(l >= app->arr_size/2 && l <= (app->arr_size/2) + 1) {
+            SDL_DestroyTexture(app->title_texture);
+            SDL_DestroyTexture(app->length_texture);
+
+            app->current_algorithm = "Merge Sort";
+            load_media(app);
+        }
         
         merge_sort(app, lines, l, m);
         merge_sort(app, lines, m+1, r);

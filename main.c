@@ -6,13 +6,11 @@ int main(void) {
     srand(time(NULL));
     printf("PID: %d\n", getpid());
     struct App app;
-    
     setup(&app);
-
+    
     // Merge Sort
-    shuffle_arr(&app, 200);
     app.current_algorithm = "Merge Sort";
-
+    shuffle_arr(&app, 200);
     load_media(&app);
     merge_sort(&app, app.lines, 0, app.arr_size);
     if(app.is_sorted) {
