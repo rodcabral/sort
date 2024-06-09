@@ -5,7 +5,7 @@ Sort is a program that creates a visualization of different sorting algorithms.
 
 Made using C and SDL2.
 
-![example](assets/example.gif)
+![example](assets/example.png)
 
 ## Algorithms
 * Merge Sort
