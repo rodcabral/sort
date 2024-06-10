@@ -25,8 +25,8 @@ bool init_window(struct App* app) {
 }
 
 void load_media(struct App* app) {
-    SDL_Color txt_color = {0xdd,0xdc,0xe8,255};
-    
+    SDL_Color txt_color = {0xc1, 0xc4, 0xdb, 255};
+
     // Title
     app->title_texture = create_text(app, app->current_algorithm, txt_color, &app->title_props, 20);
     app->title_props.x = app->container.x + (app->container.w/2) - app->title_props.w/2;
@@ -38,7 +38,7 @@ void load_media(struct App* app) {
     }
 
     // Length info
-    app->length_title_texture = create_text(app, "length: ", txt_color, &app->length_title_props, 13);
+    app->length_title_texture = create_text(app, "Length: ", txt_color, &app->length_title_props, 13);
     app->length_title_props.x = app->status_container.x + 10;
     app->length_title_props.y = app->status_container.y + 1;
 
@@ -58,8 +58,8 @@ void load_media(struct App* app) {
     }
 
     // Pause info
-    SDL_Color paused_color = {0xfa, 0x41, 0x41, 255};
-    app->pause_info_texture = create_text(app, "PAUSED", paused_color, &app->pause_info_props, 22);
+    SDL_Color paused_color = {0xff, 0x2e, 0x2e, 255};
+    app->pause_info_texture = create_text(app, "PAUSED", paused_color, &app->pause_info_props, 18);
 }
 
 void setup(struct App* app) {
@@ -113,17 +113,17 @@ void process_input(struct App* app) {
 }
 
 void render(struct App* app, int r) {
-    SDL_SetRenderDrawColor(app->renderer, 0x14, 0x14, 0x13, 255);
+    SDL_SetRenderDrawColor(app->renderer, 0x1a, 0x1b, 0x26, 255);
     SDL_RenderClear(app->renderer);
 
     SDL_RenderCopyF(app->renderer, app->title_texture, NULL, &app->title_props);
     
     // Container
-    SDL_SetRenderDrawColor(app->renderer, 0xdd, 0xdc, 0xe8, 255);
+    SDL_SetRenderDrawColor(app->renderer, 0xa9, 0xb1, 0xd6, 255);
     SDL_RenderDrawRectF(app->renderer, &app->container);
 
     // Status Container
-    SDL_SetRenderDrawColor(app->renderer, 0x00, 0x00, 0x00, 255);
+    SDL_SetRenderDrawColor(app->renderer, 0x32, 0x34, 0x4a, 255);
     SDL_RenderFillRectF(app->renderer, &app->status_container);
 
     SDL_RenderCopyF(app->renderer, app->length_title_texture, NULL, &app->length_title_props);
@@ -143,9 +143,9 @@ void render(struct App* app, int r) {
         if(app->is_sorted) {
             SDL_SetRenderDrawColor(app->renderer, 0x24, 0xff, 0x45, 255);
         } else if(i == r + gap){
-            SDL_SetRenderDrawColor(app->renderer, 0xff, 0x00, 0x00, 255);
+            SDL_SetRenderDrawColor(app->renderer, 0xff, 0x2e, 0x2e, 255);
         } else {
-            SDL_SetRenderDrawColor(app->renderer, 0xdd, 0xdc, 0xe8, 255);
+            SDL_SetRenderDrawColor(app->renderer, 0xac, 0xb0, 0xd0, 255);
         }
 
         SDL_RenderFillRectF(app->renderer, &app->lines[i].rect);
