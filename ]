@@ -1,3 +1,4 @@
+#include <SDL2/SDL_stdinc.h>
 #include <visualizer.h>
 #include <sort.h>
 #include <utils.h>
@@ -40,7 +41,7 @@ void load_media(struct App* app) {
     char info_buffer[255];
     const char* c_info = info_buffer;
 
-    snprintf(info_buffer, 255, "length:  %d  |  press", app->arr_size);
+    snprintf(info_buffer, 255, "Length:  %d  |  Press", app->arr_size);
     app->info_texture = create_text(app, c_info, txt_color, &app->info_props, 13);
     app->info_props.x = app->status_container.x + 10;
     app->info_props.y = app->status_container.y + 1;
@@ -50,22 +51,13 @@ void load_media(struct App* app) {
         return;
     }
 
-    SDL_Color focus_color = {0xe0, 0xaf, 0x68, 255};
+    SDL_Color focus_color = {0xff, 0x9e, 0x64, 255};
 
-    app->pause_focus_texture = create_text(app, "  SPACE", focus_color, &app->pause_focus_props, 11);
+    app->pause_focus_texture = create_text(app, "  SPACE", focus_color, &app->pause_focus_props, 13);
     app->pause_focus_props.x = app->info_props.x + app->info_props.w;
-    app->pause_focus_props.y = app->status_container.y + 3;
+    app->pause_focus_props.y = app->status_container.y + 1;
 
     if(!app->pause_focus_texture) {
-        fprintf(stderr, "%s\n", SDL_GetError());
-        return;
-    }
-    
-    app->second_info_texture = create_text(app, "  to pause", txt_color, &app->second_info_props, 13);
-    app->second_info_props.x = app->pause_focus_props.x + app->pause_focus_props.w;
-    app->second_info_props.y = app->status_container.y + 1;
-
-    if(!app->second_info_texture) {
         fprintf(stderr, "%s\n", SDL_GetError());
         return;
     }
@@ -141,7 +133,6 @@ void render(struct App* app, int r) {
 
     SDL_RenderCopyF(app->renderer, app->info_texture, NULL, &app->info_props);
     SDL_RenderCopyF(app->renderer, app->pause_focus_texture, NULL, &app->pause_focus_props);
-    SDL_RenderCopyF(app->renderer, app->second_info_texture, NULL, &app->second_info_props);
 
     int gap = 1;
     
@@ -181,8 +172,6 @@ void clean_sdl(struct App* app) {
     SDL_DestroyTexture(app->title_texture);
     SDL_DestroyTexture(app->info_texture);
     SDL_DestroyTexture(app->pause_info_texture);
-    SDL_DestroyTexture(app->pause_focus_texture);
-    SDL_DestroyTexture(app->second_info_texture);
 
     SDL_DestroyRenderer(app->renderer);
     SDL_DestroyWindow(app->window);

@@ -42,15 +42,18 @@ struct App {
     // Status
     SDL_FRect status_container;
 
-    SDL_Texture* length_title_texture;
-    SDL_FRect length_title_props;
-
-    SDL_Texture* length_texture;
-    SDL_FRect length_props;
+    SDL_Texture* info_texture;
+    SDL_FRect info_props;
 
     // Pause info
     SDL_Texture* pause_info_texture;
     SDL_FRect pause_info_props;
+    
+    SDL_Texture* pause_focus_texture;
+    SDL_FRect pause_focus_props;
+
+    SDL_Texture* second_info_texture;
+    SDL_FRect second_info_props;
 };
 
 bool init_window(struct App* app);
