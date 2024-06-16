@@ -129,7 +129,7 @@ void process_input(struct App* app) {
 }
 
 void render(struct App* app, int r) {
-    SDL_SetRenderDrawColor(app->renderer, 0x1a, 0x1b, 0x26, 255);
+    SDL_SetRenderDrawColor(app->renderer, 0x0e, 0x0e, 0x14, 255);
     SDL_RenderClear(app->renderer);
 
     SDL_RenderCopyF(app->renderer, app->title_texture, NULL, &app->title_props);
