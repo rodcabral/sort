@@ -83,32 +83,29 @@ void setup(App* app) {
     load_media(app);
 }
 
-void process_input(App* app) {
+void handle_input(App* app) {
     SDL_Event event;
 
-    while(SDL_PollEvent(&event)) {
-        switch(event.type) {
-            case SDL_QUIT:
-                app->is_running = false;
-                break;
-            case SDL_KEYDOWN:
-                switch(event.key.keysym.sym) {
-                    case SDLK_ESCAPE:
-                        app->is_running = false;
-                        break;
-                    case SDLK_q:
-                        app->is_running = false;
-                        break;
-                    case SDLK_SPACE:
-                        if(app->is_paused) {
-                            app->is_paused = false;
-                        } else {
-                            app->is_paused = true;
-                        }
-                        break;
-                }
-                break;
-        }
+    SDL_PollEvent(&event);
+
+    switch(event.type) {
+        case SDL_QUIT:
+            app->is_running = false;
+            break;
+        case SDL_KEYDOWN:
+            switch(event.key.keysym.sym) {
+                case SDLK_ESCAPE:
+                    app->is_running = false;
+                    break;
+                case SDLK_SPACE:
+                    if(app->is_paused) {
+                        app->is_paused = false;
+                    } else {
+                        app->is_paused = true;
+                    }
+                    break;
+            }
+            break;
     }
 }
 
@@ -151,7 +148,7 @@ void render(App* app, int r) {
     }
 
     app->is_sorted = is_array_sorted(app);
-    process_input(app);
+    handle_input(app);
     if(!app->is_running) {
         clean_sdl(app);
         exit(1);

@@ -24,7 +24,7 @@ void bubble_sort(App* app) {
                 render(app, j);
                 
                 while(app->is_paused) {
-                    process_input(app);
+                    handle_input(app);
                     if(!app->is_running) {
                         clean_sdl(app);
                         exit(1);
@@ -55,7 +55,7 @@ void selection_sort(App* app) {
                 render(app, j);
                 
                 while(app->is_paused) {
-                    process_input(app);
+                    handle_input(app);
                     if(!app->is_running) {
                         clean_sdl(app);
                         exit(1);
@@ -85,12 +85,12 @@ void insertion_sort(App* app) {
             swap(&app->lines[j].val, &app->lines[j-1].val);
             j--;
 
-            process_input(app);
+            handle_input(app);
             if(!app->is_running) break;
             render(app, i-1);
 
             while(app->is_paused) {
-                process_input(app);
+                handle_input(app);
                 if(!app->is_running) {
                     clean_sdl(app);
                     exit(1);

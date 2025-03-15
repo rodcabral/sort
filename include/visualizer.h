@@ -55,7 +55,7 @@ void load_media(App* app);
 
 void setup(App* app);
 
-void process_input(App* app);
+void handle_input(App* app);
 
 void render(App* app, int r);
 
