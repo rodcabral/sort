@@ -132,7 +132,7 @@ void render(App* app, int r) {
         app->lines[i].rect.y = app->container.y + app->container.h;
         app->lines[i].rect.w = (app->container.w / app->length) - gap;
         app->lines[i].rect.x = curr_x;
-        app->lines[i].rect.h = -(app->lines[i].val);
+        app->lines[i].rect.h = -(app->lines[i].value);
         
         curr_x += app->lines[i].rect.w + gap;
 
@@ -159,7 +159,7 @@ void render(App* app, int r) {
 
 bool is_array_sorted(App* app) {
     for(int i = 0; i < app->length - 1; ++i) {
-        if(app->lines[i].val > app->lines[i + 1].val) {
+        if(app->lines[i].value > app->lines[i + 1].value) {
             return false;
         }
     }

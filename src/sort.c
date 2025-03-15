@@ -17,7 +17,7 @@ void shuffle(App* app, int n) {
     app->length = n;
     
     for(int i = 0; i < app->length; ++i) {
-        app->lines[i].val = ((float)rand()/(float)(RAND_MAX)) * app->container.h;
+        app->lines[i].value = ((float)rand()/(float)(RAND_MAX)) * app->container.h;
     }
 }
 
@@ -27,8 +27,8 @@ void bubble_sort(App* app) {
     load_media(app);
     for(int i = 0; i < app->length; ++i) {
         for(int j = 0; j < app->length - i - 1; ++j) {
-            if(app->lines[j].val > app->lines[j + 1].val) {
-                swap(&app->lines[j].val, &app->lines[j+1].val);
+            if(app->lines[j].value > app->lines[j + 1].value) {
+                swap(&app->lines[j].value, &app->lines[j+1].value);
                 render(app, j);
                 
                 while(app->is_paused) {
@@ -55,11 +55,11 @@ void selection_sort(App* app) {
     load_media(app);
     for(int i = 0; i < app->length; ++i) {
         int min = i;
-        int data_min = app->lines[i].val;
+        int data_min = app->lines[i].value;
         for(int j = i; j < app->length; ++j) {
-            if(app->lines[j].val < data_min) {
+            if(app->lines[j].value < data_min) {
                 min = j;
-                data_min = app->lines[j].val;
+                data_min = app->lines[j].value;
                 render(app, j);
                 
                 while(app->is_paused) {
@@ -75,7 +75,7 @@ void selection_sort(App* app) {
                 SDL_Delay(10);
             }
         }
-        swap(&app->lines[i].val, &app->lines[min].val);
+        swap(&app->lines[i].value, &app->lines[min].value);
     }
 
     sorted(app);
@@ -89,8 +89,8 @@ void insertion_sort(App* app) {
     for(int i = 0; i < app->length; ++i) {
         int j = i;
 
-        while(j > 0 && app->lines[j].val < app->lines[j-1].val) {
-            swap(&app->lines[j].val, &app->lines[j-1].val);
+        while(j > 0 && app->lines[j].value < app->lines[j-1].value) {
+            swap(&app->lines[j].value, &app->lines[j-1].value);
             j--;
 
             handle_input(app);
@@ -122,11 +122,11 @@ void merge(App* app, Line* lines, int l, int m, int r) {
     Line R[n2];
 
     for(int i = 0; i < n1; ++i) {
-        L[i].val = lines[l + i].val;
+        L[i].value = lines[l + i].value;
     }
 
     for(int j = 0; j < n2; ++j) {
-        R[j].val = lines[m + 1 + j].val;
+        R[j].value = lines[m + 1 + j].value;
     }
 
     int i = 0;
@@ -134,8 +134,8 @@ void merge(App* app, Line* lines, int l, int m, int r) {
     int k = l;
 
     while(i < n1 && j < n2) {
-        if(L[i].val <= R[j].val) {
-            lines[k].val = L[i].val;
+        if(L[i].value <= R[j].value) {
+            lines[k].value = L[i].value;
             i++;
         } else {
             lines[k] = R[j];
@@ -158,13 +158,13 @@ void merge(App* app, Line* lines, int l, int m, int r) {
     }
 
     while(i < n1) {
-        lines[k].val = L[i].val;
+        lines[k].value = L[i].value;
         i++;
         k++;
     }
 
     while(j < n2) {
-        lines[k].val = R[j].val;
+        lines[k].value = R[j].value;
         j++;
         k++;
     } 

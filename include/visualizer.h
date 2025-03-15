@@ -16,7 +16,7 @@
 
 typedef struct {
     SDL_FRect rect;
-    int val;
+    int value;
 } Line;
 
 typedef struct {
