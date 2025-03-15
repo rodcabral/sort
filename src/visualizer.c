@@ -70,6 +70,8 @@ void load_media(App* app) {
 
     SDL_Color paused_color = {0xff, 0x2e, 0x2e, 255};
     app->pause_info_texture = create_text(app, "PAUSED", paused_color, &app->pause_info_props, 18);
+
+    app->is_paused = false;
 }
 
 void setup(App* app) {
