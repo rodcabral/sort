@@ -147,7 +147,6 @@ void render(App* app, int r) {
         SDL_RenderFillRectF(app->renderer, &app->lines[i].rect);
     }
 
-    app->is_sorted = is_array_sorted(app);
     handle_input(app);
     if(!app->is_running) {
         clean_sdl(app);
@@ -155,16 +154,6 @@ void render(App* app, int r) {
     };
 
     SDL_RenderPresent(app->renderer);
-}
-
-bool is_array_sorted(App* app) {
-    for(int i = 0; i < app->length - 1; ++i) {
-        if(app->lines[i].value > app->lines[i + 1].value) {
-            return false;
-        }
-    }
-    
-    return true;
 }
 
 SDL_Texture* create_text(App* app, const char* txt, SDL_Color color, SDL_FRect* props, int size) {

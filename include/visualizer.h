@@ -60,8 +60,6 @@ void render(App* app, int r);
 
 void clean_sdl(App* app);
 
-bool is_array_sorted(App* app);
-
 SDL_Texture* create_text(App* app, const char* txt, SDL_Color color, SDL_FRect* props, int size);
 
 #endif

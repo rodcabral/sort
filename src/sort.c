@@ -11,6 +11,7 @@ void sorted(App* app) {
     app->is_sorted = true;
     render(app, 0);
     sleep(1);
+    app->is_sorted = false;
 }
 
 void shuffle(App* app, int n) {
