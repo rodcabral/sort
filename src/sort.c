@@ -33,7 +33,7 @@ void bubble_sort(App* app) {
                     SDL_RenderPresent(app->renderer);
                 }
 
-                SDL_Delay(12);
+                SDL_Delay(10);
             }
         }
     }
@@ -64,7 +64,7 @@ void selection_sort(App* app) {
                     SDL_RenderPresent(app->renderer);
                 }
 
-                SDL_Delay(12);
+                SDL_Delay(10);
             }
         }
         swap(&app->lines[i].val, &app->lines[min].val);
@@ -99,7 +99,7 @@ void insertion_sort(App* app) {
                 SDL_RenderPresent(app->renderer);
             } 
 
-            SDL_Delay(12);
+            SDL_Delay(10);
         } 
     }
 
