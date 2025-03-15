@@ -1,5 +1,5 @@
-#include <visualizer.h>
-#include <sort.h>
+#include "../include/visualizer.h"
+#include "../include/sort.h"
 
 void swap(int *x, int *y) {
     int aux = *x;

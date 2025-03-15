@@ -1,5 +1,4 @@
-#include <visualizer.h>
-#include <sort.h>
+#include "../include/visualizer.h"
 
 void load_media(App* app) {
     SDL_Color txt_color = {0xc1, 0xc4, 0xdb, 255};

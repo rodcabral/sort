@@ -1,8 +1,6 @@
 #ifndef _SORT_VISUALIZER_H_
 #define _SORT_VISUALIZER_H_
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
 #include <unistd.h>

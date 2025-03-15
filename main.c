@@ -1,5 +1,5 @@
-#include <visualizer.h>
-#include <sort.h>
+#include "./include/visualizer.h"
+#include "./include/sort.h"
 
 int main(void) {
     App app;
