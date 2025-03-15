@@ -3,7 +3,6 @@
 #include <utils.h>
 
 int main(void) {
-    srand(time(NULL));
     App app;
     setup(&app);
     

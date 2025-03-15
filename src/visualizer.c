@@ -2,27 +2,6 @@
 #include <sort.h>
 #include <utils.h>
 
-bool init_window(App* app) {
-    if(SDL_Init(SDL_INIT_VIDEO) < 0) {
-        fprintf(stderr, "%s\n", SDL_GetError());
-        return false;
-    }
-
-    if(TTF_Init() < 0) {
-        fprintf(stderr, "%s\n", TTF_GetError());
-        return false;
-    }
-
-    int init_wr = SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_BORDERLESS, &app->window, &app->renderer);
-
-    if(init_wr != 0) {
-        fprintf(stderr, "%s\n", SDL_GetError());
-        return false;
-    }
-
-    return true;
-}
-
 void load_media(App* app) {
     SDL_Color txt_color = {0xc1, 0xc4, 0xdb, 255};
 
@@ -70,14 +49,25 @@ void load_media(App* app) {
 
     SDL_Color paused_color = {0xff, 0x2e, 0x2e, 255};
     app->pause_info_texture = create_text(app, "PAUSED", paused_color, &app->pause_info_props, 18);
-
-    app->is_paused = false;
 }
 
 void setup(App* app) {
-    app->is_running = init_window(app);
-    
+    srand(time(NULL));
+
+    if(SDL_Init(SDL_INIT_VIDEO) < 0) {
+        fprintf(stderr, "%s\n", SDL_GetError());
+    }
+
+    if(TTF_Init() < 0) {
+        fprintf(stderr, "%s\n", TTF_GetError());
+    }
+
+    SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_BORDERLESS, &app->window, &app->renderer);
+
     app->current_algorithm = "x";
+
+    app->is_running = true;
+    app->is_paused = false;
 
     app->container.w = CONTAINER_WIDTH;
     app->container.h = CONTAINER_HEIGHT;

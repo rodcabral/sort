@@ -52,8 +52,6 @@ typedef struct {
     SDL_FRect second_info_props;
 } App;
 
-bool init_window(App* app);
-
 void load_media(App* app);
 
 void setup(App* app);
