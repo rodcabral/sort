@@ -7,10 +7,11 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#define WINDOW_WIDTH 900
-#define WINDOW_HEIGHT 650
-#define CONTAINER_WIDTH 800
-#define CONTAINER_HEIGHT 400
+#define WINDOW_WIDTH 900.0f
+#define WINDOW_HEIGHT 650.0f
+#define CONTAINER_WIDTH 800.0f
+#define CONTAINER_HEIGHT 400.0f
+
 #define MAX_LENGTH 200
 
 typedef struct {
