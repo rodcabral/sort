@@ -4,7 +4,6 @@
 
 int main(void) {
     srand(time(NULL));
-    printf("PID: %d\n", getpid());
     App app;
     setup(&app);
     

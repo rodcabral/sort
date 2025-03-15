@@ -11,9 +11,9 @@
 
 #define WINDOW_WIDTH 900
 #define WINDOW_HEIGHT 650
-
 #define CONTAINER_WIDTH 800
 #define CONTAINER_HEIGHT 400
+#define MAX_LENGTH 200
 
 typedef struct {
     SDL_FRect rect;
@@ -35,7 +35,7 @@ typedef struct {
     const char* current_algorithm;
 
     int arr_size;
-    Line * lines;
+    Line lines[MAX_LENGTH];
 
     SDL_FRect status_container;
 

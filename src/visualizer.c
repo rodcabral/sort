@@ -171,8 +171,6 @@ void render(App* app, int r) {
 }
 
 void clean_sdl(App* app) {
-    free(app->lines);
-
     SDL_DestroyTexture(app->title_texture);
     SDL_DestroyTexture(app->info_texture);
     SDL_DestroyTexture(app->pause_info_texture);
