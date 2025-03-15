@@ -7,6 +7,12 @@ void swap(int *x, int *y) {
     *y = aux;
 }
 
+void sorted(App* app) {
+    app->is_sorted = true;
+    render(app, 0);
+    sleep(1);
+}
+
 void bubble_sort(App* app) {
     shuffle_arr(app, 100);
     app->current_algorithm = "Bubble Sort";
@@ -32,9 +38,7 @@ void bubble_sort(App* app) {
         }
     }
 
-    app->is_sorted = true;
-    render(app, 0);
-    sleep(1);
+    sorted(app);
 }
 
 void selection_sort(App* app) {
@@ -66,9 +70,7 @@ void selection_sort(App* app) {
         swap(&app->lines[i].val, &app->lines[min].val);
     }
 
-    app->is_sorted = true;
-    render(app, 0);
-    sleep(1);
+    sorted(app);
 }
 
 void insertion_sort(App* app) {
@@ -101,7 +103,5 @@ void insertion_sort(App* app) {
         } 
     }
 
-    app->is_sorted = true;
-    render(app, 0);
-    sleep(1);
+    sorted(app);
 }
