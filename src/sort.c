@@ -13,12 +13,20 @@ void sorted(App* app) {
     sleep(1);
 }
 
+void shuffle(App* app, int n) {
+    app->length = n;
+    
+    for(int i = 0; i < app->length; ++i) {
+        app->lines[i].val = ((float)rand()/(float)(RAND_MAX)) * app->container.h;
+    }
+}
+
 void bubble_sort(App* app) {
-    shuffle_arr(app, 100);
+    shuffle(app, 100);
     app->current_algorithm = "Bubble Sort";
     load_media(app);
-    for(int i = 0; i < app->arr_size; ++i) {
-        for(int j = 0; j < app->arr_size - i - 1; ++j) {
+    for(int i = 0; i < app->length; ++i) {
+        for(int j = 0; j < app->length - i - 1; ++j) {
             if(app->lines[j].val > app->lines[j + 1].val) {
                 swap(&app->lines[j].val, &app->lines[j+1].val);
                 render(app, j);
@@ -42,13 +50,13 @@ void bubble_sort(App* app) {
 }
 
 void selection_sort(App* app) {
-    shuffle_arr(app, 200);
+    shuffle(app, 200);
     app->current_algorithm = "Selection Sort";
     load_media(app);
-    for(int i = 0; i < app->arr_size; ++i) {
+    for(int i = 0; i < app->length; ++i) {
         int min = i;
         int data_min = app->lines[i].val;
-        for(int j = i; j < app->arr_size; ++j) {
+        for(int j = i; j < app->length; ++j) {
             if(app->lines[j].val < data_min) {
                 min = j;
                 data_min = app->lines[j].val;
@@ -74,11 +82,11 @@ void selection_sort(App* app) {
 }
 
 void insertion_sort(App* app) {
-    shuffle_arr(app, 100);
+    shuffle(app, 100);
     app->current_algorithm = "Insertion Sort";
     load_media(app);
 
-    for(int i = 0; i < app->arr_size; ++i) {
+    for(int i = 0; i < app->length; ++i) {
         int j = i;
 
         while(j > 0 && app->lines[j].val < app->lines[j-1].val) {
@@ -166,7 +174,7 @@ void _merge_sort(App* app, Line* lines, int l, int r) {
     if(l < r) {
         int m = (l+r)/2;
  
-        if(l >= app->arr_size/2 && l <= (app->arr_size/2) + 1) {
+        if(l >= app->length/2 && l <= (app->length/2) + 1) {
             SDL_DestroyTexture(app->title_texture);
             SDL_DestroyTexture(app->info_texture);
 
@@ -182,9 +190,9 @@ void _merge_sort(App* app, Line* lines, int l, int r) {
 
 void merge_sort(App* app) {
     app->current_algorithm = "Merge sort";
-    shuffle_arr(app, 200);
+    shuffle(app, 200);
     load_media(app);
-    _merge_sort(app, app->lines, 0, app->arr_size);
+    _merge_sort(app, app->lines, 0, app->length);
 
     sorted(app);
 }

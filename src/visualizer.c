@@ -15,7 +15,7 @@ void load_media(App* app) {
     char info_buffer[255];
     const char* c_info = info_buffer;
 
-    snprintf(info_buffer, 255, "length:  %d  |  press", app->arr_size);
+    snprintf(info_buffer, 255, "length:  %d  |  press", app->length);
     app->info_texture = create_text(app, c_info, txt_color, &app->info_props, 13);
     app->info_props.x = app->status_container.x + 10;
     app->info_props.y = app->status_container.y + 1;
@@ -128,9 +128,9 @@ void render(App* app, int r) {
     int gap = 1;
     
     int curr_x = app->container.x;
-    for(int i = 0; i < app->arr_size; ++i) {
+    for(int i = 0; i < app->length; ++i) {
         app->lines[i].rect.y = app->container.y + app->container.h;
-        app->lines[i].rect.w = (app->container.w / app->arr_size) - gap;
+        app->lines[i].rect.w = (app->container.w / app->length) - gap;
         app->lines[i].rect.x = curr_x;
         app->lines[i].rect.h = -(app->lines[i].val);
         
@@ -158,22 +158,13 @@ void render(App* app, int r) {
 }
 
 bool is_array_sorted(App* app) {
-    for(int i = 0; i < app->arr_size - 1; ++i) {
+    for(int i = 0; i < app->length - 1; ++i) {
         if(app->lines[i].val > app->lines[i + 1].val) {
             return false;
         }
     }
     
     return true;
-}
-
-void shuffle_arr(App* app, int n) {
-    app->arr_size = n;
-    
-    int lim = app->container.h;
-    for(int i = 0; i < app->arr_size; ++i) {
-        app->lines[i].val = ((float)rand()/(float)(RAND_MAX)) * lim;
-    }
 }
 
 SDL_Texture* create_text(App* app, const char* txt, SDL_Color color, SDL_FRect* props, int size) {

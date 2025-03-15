@@ -24,6 +24,9 @@ typedef struct {
     bool is_paused;
     bool is_sorted;
 
+    int length;
+    Line lines[MAX_LENGTH];
+
     SDL_Window* window;
     SDL_Renderer* renderer;
 
@@ -32,10 +35,6 @@ typedef struct {
     SDL_Texture *title_texture;
     SDL_FRect title_props;
     const char* current_algorithm;
-
-    int arr_size;
-    Line lines[MAX_LENGTH];
-
     SDL_FRect status_container;
 
     SDL_Texture* info_texture;
@@ -60,8 +59,6 @@ void handle_input(App* app);
 void render(App* app, int r);
 
 void clean_sdl(App* app);
-
-void shuffle_arr(App* app, int n);
 
 bool is_array_sorted(App* app);
 
