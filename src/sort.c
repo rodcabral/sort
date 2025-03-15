@@ -105,3 +105,86 @@ void insertion_sort(App* app) {
 
     sorted(app);
 }
+
+void merge(App* app, Line* lines, int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+    
+    Line L[n1];
+    Line R[n2];
+
+    for(int i = 0; i < n1; ++i) {
+        L[i].val = lines[l + i].val;
+    }
+
+    for(int j = 0; j < n2; ++j) {
+        R[j].val = lines[m + 1 + j].val;
+    }
+
+    int i = 0;
+    int j = 0;
+    int k = l;
+
+    while(i < n1 && j < n2) {
+        if(L[i].val <= R[j].val) {
+            lines[k].val = L[i].val;
+            i++;
+        } else {
+            lines[k] = R[j];
+            j++;
+        }
+        k++;
+        render(app, k);
+
+        while(app->is_paused) {
+            handle_input(app);
+            if(!app->is_running) {
+                clean_sdl(app);
+                exit(1);
+            }
+            SDL_RenderCopyF(app->renderer, app->pause_info_texture, NULL, &app->pause_info_props);
+            SDL_RenderPresent(app->renderer);
+        } 
+
+        SDL_Delay(10);
+    }
+
+    while(i < n1) {
+        lines[k].val = L[i].val;
+        i++;
+        k++;
+    }
+
+    while(j < n2) {
+        lines[k].val = R[j].val;
+        j++;
+        k++;
+    } 
+}
+
+void _merge_sort(App* app, Line* lines, int l, int r) {
+    if(l < r) {
+        int m = (l+r)/2;
+ 
+        if(l >= app->arr_size/2 && l <= (app->arr_size/2) + 1) {
+            SDL_DestroyTexture(app->title_texture);
+            SDL_DestroyTexture(app->info_texture);
+
+            app->current_algorithm = "Merge Sort";
+            load_media(app);
+        }
+        
+        _merge_sort(app, lines, l, m);
+        _merge_sort(app, lines, m+1, r);
+        merge(app, lines, l, m, r);
+    }
+}
+
+void merge_sort(App* app) {
+    app->current_algorithm = "Merge sort";
+    shuffle_arr(app, 200);
+    load_media(app);
+    _merge_sort(app, app->lines, 0, app->arr_size);
+
+    sorted(app);
+}

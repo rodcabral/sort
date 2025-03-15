@@ -6,5 +6,6 @@
 void bubble_sort(App* app);
 void selection_sort(App* app);
 void insertion_sort(App* app);
+void merge_sort(App* app);
 
 #endif
