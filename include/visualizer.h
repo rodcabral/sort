@@ -15,10 +15,10 @@
 #define CONTAINER_WIDTH 800
 #define CONTAINER_HEIGHT 400
 
-struct Line {
+typedef struct {
     SDL_FRect rect;
     int val;
-};
+} Line;
 
 typedef struct {
     bool is_running;
@@ -35,7 +35,7 @@ typedef struct {
     const char* current_algorithm;
 
     int arr_size;
-    struct Line * lines;
+    Line * lines;
 
     SDL_FRect status_container;
 

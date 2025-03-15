@@ -7,7 +7,7 @@ void bubble_sort(App* app);
 void selection_sort(App* app);
 void insertion_sort(App* app);
 
-void merge(App* app, struct Line* lines, int l, int m, int r);
-void merge_sort(App*, struct Line* lines, int l, int r);
+void merge(App* app, Line* lines, int l, int m, int r);
+void merge_sort(App*, Line* lines, int l, int r);
 
 #endif

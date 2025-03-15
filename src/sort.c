@@ -103,12 +103,12 @@ void insertion_sort(App* app) {
     sleep(1);
 }
 
-void merge(App* app, struct Line* lines, int l, int m, int r) {
+void merge(App* app, Line* lines, int l, int m, int r) {
     int n1 = m - l + 1;
     int n2 = r - m;
     
-    struct Line L[n1];
-    struct Line R[n2];
+    Line L[n1];
+    Line R[n2];
 
     for(int i = 0; i < n1; ++i) {
         L[i].val = lines[l + i].val;
@@ -159,7 +159,7 @@ void merge(App* app, struct Line* lines, int l, int m, int r) {
     } 
 }
 
-void merge_sort(App* app, struct Line* lines, int l, int r) {
+void merge_sort(App* app, Line* lines, int l, int r) {
     if(l < r) {
         int m = (l+r)/2;
  

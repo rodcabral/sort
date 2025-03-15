@@ -13,7 +13,7 @@ bool is_array_sorted(App* app) {
 void shuffle_arr(App* app, int n) {
     app->arr_size = n;
     
-    app->lines = malloc(sizeof(struct Line) * app->arr_size);
+    app->lines = malloc(sizeof(Line) * app->arr_size);
 
     int lim = app->container.h;
     for(int i = 0; i < app->arr_size; ++i) {
