@@ -3,11 +3,11 @@
 
 #include <visualizer.h>
 
-void bubble_sort(struct App* app);
-void selection_sort(struct App* app);
-void insertion_sort(struct App* app);
+void bubble_sort(App* app);
+void selection_sort(App* app);
+void insertion_sort(App* app);
 
-void merge(struct App* app, struct Line* lines, int l, int m, int r);
-void merge_sort(struct App*, struct Line* lines, int l, int r);
+void merge(App* app, struct Line* lines, int l, int m, int r);
+void merge_sort(App*, struct Line* lines, int l, int r);
 
 #endif

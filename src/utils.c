@@ -1,6 +1,6 @@
 #include <utils.h>
 
-bool is_array_sorted(struct App* app) {
+bool is_array_sorted(App* app) {
     for(int i = 0; i < app->arr_size - 1; ++i) {
         if(app->lines[i].val > app->lines[i + 1].val) {
             return false;
@@ -10,7 +10,7 @@ bool is_array_sorted(struct App* app) {
     return true;
 }
 
-void shuffle_arr(struct App* app, int n) {
+void shuffle_arr(App* app, int n) {
     app->arr_size = n;
     
     app->lines = malloc(sizeof(struct Line) * app->arr_size);
@@ -21,7 +21,7 @@ void shuffle_arr(struct App* app, int n) {
     }
 }
 
-SDL_Texture* create_text(struct App* app, const char* txt, SDL_Color color, SDL_FRect* props, int size) {
+SDL_Texture* create_text(App* app, const char* txt, SDL_Color color, SDL_FRect* props, int size) {
     TTF_Font* font = TTF_OpenFont("./fonts/Montserrat-Regular.otf", size);
 
     if(!font) {

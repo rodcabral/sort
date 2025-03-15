@@ -7,7 +7,7 @@ void swap(int *x, int *y) {
     *y = aux;
 }
 
-void bubble_sort(struct App* app) {
+void bubble_sort(App* app) {
     app->current_algorithm = "Bubble Sort";
     load_media(app);
     for(int i = 0; i < app->arr_size; ++i) {
@@ -36,7 +36,7 @@ void bubble_sort(struct App* app) {
     sleep(1);
 }
 
-void selection_sort(struct App* app) {
+void selection_sort(App* app) {
     app->current_algorithm = "Selection Sort";
     load_media(app);
     for(int i = 0; i < app->arr_size; ++i) {
@@ -69,7 +69,7 @@ void selection_sort(struct App* app) {
     sleep(1);
 }
 
-void insertion_sort(struct App* app) {
+void insertion_sort(App* app) {
     app->current_algorithm = "Insertion Sort";
     load_media(app);
 
@@ -103,7 +103,7 @@ void insertion_sort(struct App* app) {
     sleep(1);
 }
 
-void merge(struct App* app, struct Line* lines, int l, int m, int r) {
+void merge(App* app, struct Line* lines, int l, int m, int r) {
     int n1 = m - l + 1;
     int n2 = r - m;
     
@@ -159,7 +159,7 @@ void merge(struct App* app, struct Line* lines, int l, int m, int r) {
     } 
 }
 
-void merge_sort(struct App* app, struct Line* lines, int l, int r) {
+void merge_sort(App* app, struct Line* lines, int l, int r) {
     if(l < r) {
         int m = (l+r)/2;
  

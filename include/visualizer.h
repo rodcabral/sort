@@ -13,14 +13,14 @@
 #define WINDOW_HEIGHT 650
 
 #define CONTAINER_WIDTH 800
-#define CONTAINER_HEIGHT 450
+#define CONTAINER_HEIGHT 400
 
 struct Line {
     SDL_FRect rect;
     int val;
 };
 
-struct App {
+typedef struct {
     bool is_running;
     bool is_paused;
     bool is_sorted;
@@ -28,10 +28,8 @@ struct App {
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    // Container
     SDL_FRect container;
 
-    // Current Algorithm Title
     SDL_Texture *title_texture;
     SDL_FRect title_props;
     const char* current_algorithm;
@@ -39,13 +37,11 @@ struct App {
     int arr_size;
     struct Line * lines;
 
-    // Status
     SDL_FRect status_container;
 
     SDL_Texture* info_texture;
     SDL_FRect info_props;
 
-    // Pause info
     SDL_Texture* pause_info_texture;
     SDL_FRect pause_info_props;
     
@@ -54,18 +50,18 @@ struct App {
 
     SDL_Texture* second_info_texture;
     SDL_FRect second_info_props;
-};
+} App;
 
-bool init_window(struct App* app);
+bool init_window(App* app);
 
-void load_media(struct App* app);
+void load_media(App* app);
 
-void setup(struct App* app);
+void setup(App* app);
 
-void process_input(struct App* app);
+void process_input(App* app);
 
-void render(struct App* app, int r);
+void render(App* app, int r);
 
-void clean_sdl(struct App* app);
+void clean_sdl(App* app);
 
 #endif

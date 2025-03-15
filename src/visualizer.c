@@ -2,7 +2,7 @@
 #include <sort.h>
 #include <utils.h>
 
-bool init_window(struct App* app) {
+bool init_window(App* app) {
     if(SDL_Init(SDL_INIT_VIDEO) < 0) {
         fprintf(stderr, "%s\n", SDL_GetError());
         return false;
@@ -23,10 +23,9 @@ bool init_window(struct App* app) {
     return true;
 }
 
-void load_media(struct App* app) {
+void load_media(App* app) {
     SDL_Color txt_color = {0xc1, 0xc4, 0xdb, 255};
 
-    // Title
     app->title_texture = create_text(app, app->current_algorithm, txt_color, &app->title_props, 20);
     app->title_props.x = app->container.x + (app->container.w/2) - app->title_props.w/2;
     app->title_props.y = app->container.y - 40;
@@ -36,7 +35,6 @@ void load_media(struct App* app) {
         return;
     }
 
-    // Status bar info
     char info_buffer[255];
     const char* c_info = info_buffer;
 
@@ -70,36 +68,32 @@ void load_media(struct App* app) {
         return;
     }
 
-    // Pause info
     SDL_Color paused_color = {0xff, 0x2e, 0x2e, 255};
     app->pause_info_texture = create_text(app, "PAUSED", paused_color, &app->pause_info_props, 18);
 }
 
-void setup(struct App* app) {
+void setup(App* app) {
     app->is_running = init_window(app);
     
     app->current_algorithm = "x";
 
-    // Container
     app->container.w = CONTAINER_WIDTH;
     app->container.h = CONTAINER_HEIGHT;
     app->container.x = (WINDOW_WIDTH / 2) - (CONTAINER_WIDTH / 2);
     app->container.y = (WINDOW_HEIGHT / 2) - (CONTAINER_HEIGHT / 2);
 
-    // Status
     app->status_container.w = WINDOW_WIDTH;
     app->status_container.h = 20;
     app->status_container.x = 0;
     app->status_container.y = WINDOW_HEIGHT - app->status_container.h;
 
-    // Paused
     app->pause_info_props.x = 20;
     app->pause_info_props.y = 20;
 
     load_media(app);
 }
 
-void process_input(struct App* app) {
+void process_input(App* app) {
     SDL_Event event;
 
     while(SDL_PollEvent(&event)) {
@@ -128,17 +122,15 @@ void process_input(struct App* app) {
     }
 }
 
-void render(struct App* app, int r) {
+void render(App* app, int r) {
     SDL_SetRenderDrawColor(app->renderer, 0x1a, 0x1b, 0x26, 255);
     SDL_RenderClear(app->renderer);
 
     SDL_RenderCopyF(app->renderer, app->title_texture, NULL, &app->title_props);
     
-    // Container
     SDL_SetRenderDrawColor(app->renderer, 0xa9, 0xb1, 0xd6, 255);
     SDL_RenderDrawRectF(app->renderer, &app->container);
 
-    // Status Container
     SDL_SetRenderDrawColor(app->renderer, 0x32, 0x34, 0x4a, 255);
     SDL_RenderFillRectF(app->renderer, &app->status_container);
 
@@ -178,7 +170,7 @@ void render(struct App* app, int r) {
     SDL_RenderPresent(app->renderer);
 }
 
-void clean_sdl(struct App* app) {
+void clean_sdl(App* app) {
     free(app->lines);
 
     SDL_DestroyTexture(app->title_texture);

@@ -5,10 +5,9 @@
 int main(void) {
     srand(time(NULL));
     printf("PID: %d\n", getpid());
-    struct App app;
+    App app;
     setup(&app);
     
-    // Merge Sort
     app.current_algorithm = "Merge Sort";
     shuffle_arr(&app, 200);
     load_media(&app);
@@ -18,15 +17,12 @@ int main(void) {
         sleep(1);
     }
 
-    // Bubble Sort
     shuffle_arr(&app, 100);
     bubble_sort(&app);
 
-    // Selection Sort
     shuffle_arr(&app, 200);
     selection_sort(&app);
 
-    // Insertion sort
     shuffle_arr(&app, 100);
     insertion_sort(&app);
 

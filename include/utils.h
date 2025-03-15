@@ -4,10 +4,10 @@
 #include <visualizer.h>
 #include <stdbool.h>
 
-bool is_array_sorted(struct App* app);
+bool is_array_sorted(App* app);
 
-void shuffle_arr(struct App* app, int n);
+void shuffle_arr(App* app, int n);
 
-SDL_Texture* create_text(struct App* app, const char* txt, SDL_Color color, SDL_FRect* props, int size);
+SDL_Texture* create_text(App* app, const char* txt, SDL_Color color, SDL_FRect* props, int size);
 
 #endif
