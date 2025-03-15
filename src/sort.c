@@ -1,4 +1,3 @@
-#include "utils.h"
 #include <visualizer.h>
 #include <sort.h>
 

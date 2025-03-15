@@ -1,6 +1,5 @@
 #include <visualizer.h>
 #include <sort.h>
-#include <utils.h>
 
 int main(void) {
     App app;

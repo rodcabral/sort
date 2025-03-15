@@ -62,4 +62,10 @@ void render(App* app, int r);
 
 void clean_sdl(App* app);
 
+void shuffle_arr(App* app, int n);
+
+bool is_array_sorted(App* app);
+
+SDL_Texture* create_text(App* app, const char* txt, SDL_Color color, SDL_FRect* props, int size);
+
 #endif
