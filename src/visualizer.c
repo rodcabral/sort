@@ -1,9 +1,11 @@
 #include "../include/visualizer.h"
 
 void load_media(App* app) {
-    SDL_Color txt_color = {0xc1, 0xc4, 0xdb, 255};
+    SDL_Color text_color = {0xc1, 0xc4, 0xdb, 255};
+    SDL_Color focus_color = {0xe0, 0xaf, 0x68, 255};
+    SDL_Color paused_color = {0xff, 0x2e, 0x2e, 255};
 
-    app->title.texture = create_text(app, app->current_algorithm, txt_color, &app->title.rect, 20);
+    app->title.texture = create_text(app, app->current_algorithm, text_color, &app->title.rect, 20);
     app->title.rect.x = app->container.x + (app->container.w/2) - app->title.rect.w/2;
     app->title.rect.y = app->container.y - 40;
 
@@ -12,11 +14,10 @@ void load_media(App* app) {
         return;
     }
 
-    char info_buffer[255];
-    const char* c_info = info_buffer;
+    char info_buffer[100];
+    snprintf(info_buffer, 100, "length:  %d  |  press", app->length);
 
-    snprintf(info_buffer, 255, "length:  %d  |  press", app->length);
-    app->info.texture = create_text(app, c_info, txt_color, &app->info.rect, 13);
+    app->info.texture = create_text(app, info_buffer, text_color, &app->info.rect, 13);
     app->info.rect.x = app->status_container.x + 10;
     app->info.rect.y = app->status_container.y + 1;
 
@@ -25,28 +26,25 @@ void load_media(App* app) {
         return;
     }
 
-    SDL_Color focus_color = {0xe0, 0xaf, 0x68, 255};
+    app->pause_focus.texture = create_text(app, "  SPACE", focus_color, &app->pause_focus.rect, 11);
+    app->pause_focus.rect.x = app->info.rect.x + app->info.rect.w;
+    app->pause_focus.rect.y = app->status_container.y + 3;
 
-    app->pause_focus_texture = create_text(app, "  SPACE", focus_color, &app->pause_focus_props, 11);
-    app->pause_focus_props.x = app->info.rect.x + app->info.rect.w;
-    app->pause_focus_props.y = app->status_container.y + 3;
-
-    if(!app->pause_focus_texture) {
+    if(!app->pause_focus.texture) {
         fprintf(stderr, "%s\n", SDL_GetError());
         return;
     }
     
-    app->second_info_texture = create_text(app, "  to pause", txt_color, &app->second_info_props, 13);
-    app->second_info_props.x = app->pause_focus_props.x + app->pause_focus_props.w;
-    app->second_info_props.y = app->status_container.y + 1;
+    app->second_pause_info.texture = create_text(app, "  to pause", text_color, &app->second_pause_info.rect, 13);
+    app->second_pause_info.rect.x = app->pause_focus.rect.x + app->pause_focus.rect.w;
+    app->second_pause_info.rect.y = app->status_container.y + 1;
 
-    if(!app->second_info_texture) {
+    if(!app->second_pause_info.texture) {
         fprintf(stderr, "%s\n", SDL_GetError());
         return;
     }
 
-    SDL_Color paused_color = {0xff, 0x2e, 0x2e, 255};
-    app->pause_info_texture = create_text(app, "PAUSED", paused_color, &app->pause_info_props, 18);
+    app->pause_info.texture = create_text(app, "PAUSED", paused_color, &app->pause_info.rect, 18);
 }
 
 void setup(App* app) {
@@ -77,8 +75,8 @@ void setup(App* app) {
     app->status_container.x = 0;
     app->status_container.y = WINDOW_HEIGHT - app->status_container.h;
 
-    app->pause_info_props.x = 20;
-    app->pause_info_props.y = 20;
+    app->pause_info.rect.x = 20;
+    app->pause_info.rect.y = 20;
 
     load_media(app);
 }
@@ -122,8 +120,8 @@ void render(App* app, int r) {
     SDL_RenderFillRectF(app->renderer, &app->status_container);
 
     SDL_RenderCopyF(app->renderer, app->info.texture, NULL, &app->info.rect);
-    SDL_RenderCopyF(app->renderer, app->pause_focus_texture, NULL, &app->pause_focus_props);
-    SDL_RenderCopyF(app->renderer, app->second_info_texture, NULL, &app->second_info_props);
+    SDL_RenderCopyF(app->renderer, app->pause_focus.texture, NULL, &app->pause_focus.rect);
+    SDL_RenderCopyF(app->renderer, app->second_pause_info.texture, NULL, &app->second_pause_info.rect);
 
     int gap = 1;
     
@@ -156,7 +154,7 @@ void render(App* app, int r) {
     SDL_RenderPresent(app->renderer);
 }
 
-SDL_Texture* create_text(App* app, const char* txt, SDL_Color color, SDL_FRect* props, int size) {
+SDL_Texture* create_text(App* app, const char* text, SDL_Color color, SDL_FRect* rect, int size) {
     TTF_Font* font = TTF_OpenFont("./fonts/Montserrat-Regular.otf", size);
 
     if(!font) {
@@ -164,15 +162,15 @@ SDL_Texture* create_text(App* app, const char* txt, SDL_Color color, SDL_FRect* 
         return NULL;
     }
 
-    SDL_Surface *surface = TTF_RenderText_Blended(font, txt, color);
+    SDL_Surface *surface = TTF_RenderText_Blended(font, text, color);
 
     if(!surface) {
         fprintf(stderr, "%s\n", SDL_GetError());
         return NULL;
     }
 
-    props->w = surface->w;
-    props->h = surface->h;
+    rect->w = surface->w;
+    rect->h = surface->h;
     
     SDL_Texture *new_texture = SDL_CreateTextureFromSurface(app->renderer, surface);
 
@@ -190,9 +188,9 @@ SDL_Texture* create_text(App* app, const char* txt, SDL_Color color, SDL_FRect* 
 void clean_sdl(App* app) {
     SDL_DestroyTexture(app->title.texture);
     SDL_DestroyTexture(app->info.texture);
-    SDL_DestroyTexture(app->pause_info_texture);
-    SDL_DestroyTexture(app->pause_focus_texture);
-    SDL_DestroyTexture(app->second_info_texture);
+    SDL_DestroyTexture(app->pause_info.texture);
+    SDL_DestroyTexture(app->pause_focus.texture);
+    SDL_DestroyTexture(app->second_pause_info.texture);
 
     SDL_DestroyRenderer(app->renderer);
     SDL_DestroyWindow(app->window);

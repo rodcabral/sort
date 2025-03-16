@@ -38,7 +38,7 @@ void bubble_sort(App* app) {
                         clean_sdl(app);
                         exit(1);
                     }
-                    SDL_RenderCopyF(app->renderer, app->pause_info_texture, NULL, &app->pause_info_props);
+                    SDL_RenderCopyF(app->renderer, app->pause_info.texture, NULL, &app->pause_info.rect);
                     SDL_RenderPresent(app->renderer);
                 }
 
@@ -69,7 +69,7 @@ void selection_sort(App* app) {
                         clean_sdl(app);
                         exit(1);
                     }
-                    SDL_RenderCopyF(app->renderer, app->pause_info_texture, NULL, &app->pause_info_props);
+                    SDL_RenderCopyF(app->renderer, app->pause_info.texture, NULL, &app->pause_info.rect);
                     SDL_RenderPresent(app->renderer);
                 }
 
@@ -104,7 +104,7 @@ void insertion_sort(App* app) {
                     clean_sdl(app);
                     exit(1);
                 }
-                SDL_RenderCopyF(app->renderer, app->pause_info_texture, NULL, &app->pause_info_props);
+                SDL_RenderCopyF(app->renderer, app->pause_info.texture, NULL, &app->pause_info.rect);
                 SDL_RenderPresent(app->renderer);
             } 
 
@@ -151,7 +151,7 @@ void merge(App* app, Line* lines, int l, int m, int r) {
                 clean_sdl(app);
                 exit(1);
             }
-            SDL_RenderCopyF(app->renderer, app->pause_info_texture, NULL, &app->pause_info_props);
+            SDL_RenderCopyF(app->renderer, app->pause_info.texture, NULL, &app->pause_info.rect);
             SDL_RenderPresent(app->renderer);
         } 
 

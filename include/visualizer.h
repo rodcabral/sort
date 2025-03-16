@@ -39,18 +39,12 @@ typedef struct {
 
     Object title;
     Object info;
+    Object pause_info;
+    Object pause_focus;
+    Object second_pause_info;
 
     const char* current_algorithm;
     SDL_FRect status_container;
-
-    SDL_Texture* pause_info_texture;
-    SDL_FRect pause_info_props;
-    
-    SDL_Texture* pause_focus_texture;
-    SDL_FRect pause_focus_props;
-
-    SDL_Texture* second_info_texture;
-    SDL_FRect second_info_props;
 } App;
 
 void load_media(App* app);
