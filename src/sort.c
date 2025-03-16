@@ -190,7 +190,7 @@ void _merge_sort(App* app, Line* lines, int l, int r) {
 }
 
 void merge_sort(App* app) {
-    app->current_algorithm = "Merge sort";
+    app->current_algorithm = "Merge Sort";
     shuffle(app, 200);
     load_media(app);
     _merge_sort(app, app->lines, 0, app->length);

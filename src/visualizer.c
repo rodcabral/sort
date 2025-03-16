@@ -5,44 +5,24 @@ void load_media(App* app) {
     SDL_Color focus_color = {0xe0, 0xaf, 0x68, 255};
     SDL_Color paused_color = {0xff, 0x2e, 0x2e, 255};
 
-    app->title.texture = create_text(app, app->current_algorithm, text_color, &app->title.rect, 20);
-    app->title.rect.x = app->container.x + (app->container.w/2) - app->title.rect.w/2;
-    app->title.rect.y = app->container.y - 40;
-
-    if(!app->title.texture) {
-        fprintf(stderr, "%s\n", SDL_GetError());
-        return;
-    }
+    app->title.texture = create_text(app, app->current_algorithm, text_color, &app->title.rect, 21);
+    app->title.rect.x = app->container.x + (app->container.w/2) - (app->title.rect.w/2);
+    app->title.rect.y = app->container.y - 50;
 
     char info_buffer[100];
-    snprintf(info_buffer, 100, "length:  %d  |  press", app->length);
+    snprintf(info_buffer, 100, "Length:  %d  |  Press", app->length);
 
     app->info.texture = create_text(app, info_buffer, text_color, &app->info.rect, 13);
     app->info.rect.x = app->status_container.x + 10;
-    app->info.rect.y = app->status_container.y + 1;
+    app->info.rect.y = app->status_container.y + 2;
 
-    if(!app->info.texture) {
-        fprintf(stderr, "%s\n", SDL_GetError());
-        return;
-    }
-
-    app->pause_focus.texture = create_text(app, "  SPACE", focus_color, &app->pause_focus.rect, 11);
+    app->pause_focus.texture = create_text(app, "  SPACE", focus_color, &app->pause_focus.rect, 13);
     app->pause_focus.rect.x = app->info.rect.x + app->info.rect.w;
-    app->pause_focus.rect.y = app->status_container.y + 3;
-
-    if(!app->pause_focus.texture) {
-        fprintf(stderr, "%s\n", SDL_GetError());
-        return;
-    }
+    app->pause_focus.rect.y = app->status_container.y + 2;
     
     app->second_pause_info.texture = create_text(app, "  to pause", text_color, &app->second_pause_info.rect, 13);
     app->second_pause_info.rect.x = app->pause_focus.rect.x + app->pause_focus.rect.w;
-    app->second_pause_info.rect.y = app->status_container.y + 1;
-
-    if(!app->second_pause_info.texture) {
-        fprintf(stderr, "%s\n", SDL_GetError());
-        return;
-    }
+    app->second_pause_info.rect.y = app->status_container.y + 2;
 
     app->pause_info.texture = create_text(app, "PAUSED", paused_color, &app->pause_info.rect, 18);
 }
@@ -58,7 +38,7 @@ void setup(App* app) {
         fprintf(stderr, "%s\n", TTF_GetError());
     }
 
-    SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_BORDERLESS, &app->window, &app->renderer);
+    SDL_CreateWindowAndRenderer((int)WINDOW_WIDTH, (int)WINDOW_HEIGHT, SDL_WINDOW_BORDERLESS, &app->window, &app->renderer);
 
     app->current_algorithm = "x";
 

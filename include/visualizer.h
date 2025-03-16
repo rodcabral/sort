@@ -35,16 +35,15 @@ typedef struct {
     SDL_Window* window;
     SDL_Renderer* renderer;
 
+    const char* current_algorithm;
     SDL_FRect container;
+    SDL_FRect status_container;
 
     Object title;
     Object info;
     Object pause_info;
     Object pause_focus;
     Object second_pause_info;
-
-    const char* current_algorithm;
-    SDL_FRect status_container;
 } App;
 
 void load_media(App* app);
