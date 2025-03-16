@@ -20,6 +20,11 @@ typedef struct {
 } Line;
 
 typedef struct {
+    SDL_FRect rect;
+    SDL_Texture *texture;
+} Object;
+
+typedef struct {
     bool is_running;
     bool is_paused;
     bool is_sorted;
@@ -32,13 +37,11 @@ typedef struct {
 
     SDL_FRect container;
 
-    SDL_Texture *title_texture;
-    SDL_FRect title_props;
+    Object title;
+    Object info;
+
     const char* current_algorithm;
     SDL_FRect status_container;
-
-    SDL_Texture* info_texture;
-    SDL_FRect info_props;
 
     SDL_Texture* pause_info_texture;
     SDL_FRect pause_info_props;

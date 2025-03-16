@@ -176,8 +176,8 @@ void _merge_sort(App* app, Line* lines, int l, int r) {
         int m = (l+r)/2;
  
         if(l >= app->length/2 && l <= (app->length/2) + 1) {
-            SDL_DestroyTexture(app->title_texture);
-            SDL_DestroyTexture(app->info_texture);
+            SDL_DestroyTexture(app->title.texture);
+            SDL_DestroyTexture(app->info.texture);
 
             app->current_algorithm = "Merge Sort";
             load_media(app);
