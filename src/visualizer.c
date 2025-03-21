@@ -2,8 +2,8 @@
 
 void load_media(App* app) {
     SDL_Color text_color = {0xc1, 0xc4, 0xdb, 255};
-    SDL_Color focus_color = {0xe0, 0xaf, 0x68, 255};
-    SDL_Color paused_color = {0xff, 0x2e, 0x2e, 255};
+    SDL_Color focus_color = {0xc0, 0xa3, 0x6e, 255};
+    SDL_Color paused_color = {0xc3, 0x40, 0x43, 255};
 
     app->title.texture = create_text(app, app->current_algorithm, text_color, &app->title.rect, 21);
     app->title.rect.x = app->container.x + (app->container.w/2) - (app->title.rect.w/2);
@@ -39,8 +39,6 @@ void setup(App* app) {
     }
 
     SDL_CreateWindowAndRenderer((int)WINDOW_WIDTH, (int)WINDOW_HEIGHT, SDL_WINDOW_BORDERLESS, &app->window, &app->renderer);
-
-    app->current_algorithm = "x";
 
     app->is_running = true;
     app->is_paused = false;
@@ -88,7 +86,7 @@ void handle_input(App* app) {
 }
 
 void render(App* app, int r) {
-    SDL_SetRenderDrawColor(app->renderer, 0x1a, 0x1b, 0x26, 255);
+    SDL_SetRenderDrawColor(app->renderer, 0x1f, 0x1f, 0x28, 255);
     SDL_RenderClear(app->renderer);
 
     SDL_RenderCopyF(app->renderer, app->title.texture, NULL, &app->title.rect);
@@ -96,7 +94,7 @@ void render(App* app, int r) {
     SDL_SetRenderDrawColor(app->renderer, 0xa9, 0xb1, 0xd6, 255);
     SDL_RenderDrawRectF(app->renderer, &app->container);
 
-    SDL_SetRenderDrawColor(app->renderer, 0x32, 0x34, 0x4a, 255);
+    SDL_SetRenderDrawColor(app->renderer, 0x2c, 0x2c, 0x36, 255);
     SDL_RenderFillRectF(app->renderer, &app->status_container);
 
     SDL_RenderCopyF(app->renderer, app->info.texture, NULL, &app->info.rect);
@@ -115,11 +113,11 @@ void render(App* app, int r) {
         curr_x += app->lines[i].rect.w + gap;
 
         if(app->is_sorted) {
-            SDL_SetRenderDrawColor(app->renderer, 0x24, 0xff, 0x45, 255);
+            SDL_SetRenderDrawColor(app->renderer, 0x47, 0xad, 0x61, 255);
         } else if(i == r + gap){
-            SDL_SetRenderDrawColor(app->renderer, 0xff, 0x2e, 0x2e, 255);
+            SDL_SetRenderDrawColor(app->renderer, 0xc3, 0x40, 0x43, 255);
         } else {
-            SDL_SetRenderDrawColor(app->renderer, 0xac, 0xb0, 0xd0, 255);
+            SDL_SetRenderDrawColor(app->renderer, 0xd2, 0xd2, 0xd4, 255);
         }
 
         SDL_RenderFillRectF(app->renderer, &app->lines[i].rect);
