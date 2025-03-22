@@ -1,4 +1,3 @@
-#include "./include/visualizer.h"
 #include "./include/sort.h"
 
 int main(void) {
