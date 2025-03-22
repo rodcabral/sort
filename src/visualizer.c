@@ -10,19 +10,19 @@ void load_media(App* app) {
     app->title.rect.y = app->container.y - 50;
 
     char info_buffer[100];
-    snprintf(info_buffer, 100, "Length:  %d  |  Press", app->length);
+    snprintf(info_buffer, 100, "length:  %d  |  press", app->length);
 
     app->info.texture = create_text(app, info_buffer, text_color, &app->info.rect, 13);
     app->info.rect.x = app->status_container.x + 10;
-    app->info.rect.y = app->status_container.y + 2;
+    app->info.rect.y = app->status_container.y + 1;
 
-    app->pause_focus.texture = create_text(app, "  SPACE", focus_color, &app->pause_focus.rect, 13);
+    app->pause_focus.texture = create_text(app, "  SPACE", focus_color, &app->pause_focus.rect, 11);
     app->pause_focus.rect.x = app->info.rect.x + app->info.rect.w;
-    app->pause_focus.rect.y = app->status_container.y + 2;
+    app->pause_focus.rect.y = app->status_container.y + 3;
     
     app->second_pause_info.texture = create_text(app, "  to pause", text_color, &app->second_pause_info.rect, 13);
     app->second_pause_info.rect.x = app->pause_focus.rect.x + app->pause_focus.rect.w;
-    app->second_pause_info.rect.y = app->status_container.y + 2;
+    app->second_pause_info.rect.y = app->status_container.y + 1;
 
     app->pause_info.texture = create_text(app, "PAUSED", paused_color, &app->pause_info.rect, 18);
 }
@@ -86,7 +86,7 @@ void handle_input(App* app) {
 }
 
 void render(App* app, int r) {
-    SDL_SetRenderDrawColor(app->renderer, 0x1f, 0x1f, 0x28, 255);
+    SDL_SetRenderDrawColor(app->renderer, 0x0f, 0x0f, 0x0f, 255);
     SDL_RenderClear(app->renderer);
 
     SDL_RenderCopyF(app->renderer, app->title.texture, NULL, &app->title.rect);
@@ -94,7 +94,7 @@ void render(App* app, int r) {
     SDL_SetRenderDrawColor(app->renderer, 0xa9, 0xb1, 0xd6, 255);
     SDL_RenderDrawRectF(app->renderer, &app->container);
 
-    SDL_SetRenderDrawColor(app->renderer, 0x2c, 0x2c, 0x36, 255);
+    SDL_SetRenderDrawColor(app->renderer, 0x19, 0x19, 0x19, 255);
     SDL_RenderFillRectF(app->renderer, &app->status_container);
 
     SDL_RenderCopyF(app->renderer, app->info.texture, NULL, &app->info.rect);
@@ -117,7 +117,7 @@ void render(App* app, int r) {
         } else if(i == r + gap){
             SDL_SetRenderDrawColor(app->renderer, 0xc3, 0x40, 0x43, 255);
         } else {
-            SDL_SetRenderDrawColor(app->renderer, 0xd2, 0xd2, 0xd4, 255);
+            SDL_SetRenderDrawColor(app->renderer, 0xee, 0xee, 0xee, 255);
         }
 
         SDL_RenderFillRectF(app->renderer, &app->lines[i].rect);
