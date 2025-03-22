@@ -12,7 +12,7 @@
 #define CONTAINER_WIDTH 800.0f
 #define CONTAINER_HEIGHT 400.0f
 
-#define MAX_LENGTH 200
+#define MAX_LENGTH 250
 
 typedef struct {
     SDL_FRect rect;

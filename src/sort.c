@@ -18,7 +18,7 @@ void shuffle(App* app, int n) {
     app->length = n;
     
     for(int i = 0; i < app->length; ++i) {
-        app->lines[i].value = ((float)rand()/(float)(RAND_MAX)) * app->container.h;
+        app->lines[i].value = (int)rand() % (int)app->container.h;
     }
 }
 
