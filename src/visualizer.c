@@ -91,7 +91,7 @@ void handle_input(App* app) {
 
     if(!app->is_running) {
         clean_sdl(app);
-        exit(1);
+        exit(0);
     }
 }
 
