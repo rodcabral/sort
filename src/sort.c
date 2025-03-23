@@ -65,7 +65,7 @@ void selection_sort(App* app) {
             if(app->lines[j].value < data_min) {
                 min = j;
                 data_min = app->lines[j].value;
-                render(app, j);
+                render(app, j - 1);
                 
                 pause_sort(app); 
 
