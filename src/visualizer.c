@@ -83,6 +83,11 @@ void handle_input(App* app) {
             }
             break;
     }
+
+    if(!app->is_running) {
+        clean_sdl(app);
+        exit(1);
+    }
 }
 
 void render(App* app, int r) {
@@ -123,11 +128,7 @@ void render(App* app, int r) {
         SDL_RenderFillRectF(app->renderer, &app->lines[i].rect);
     }
 
-    handle_input(app);
-    if(!app->is_running) {
-        clean_sdl(app);
-        exit(1);
-    };
+    handle_input(app); 
 
     SDL_RenderPresent(app->renderer);
 }
