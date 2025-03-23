@@ -1,5 +1,10 @@
 #include "../include/visualizer.h"
 
+void exit_program(App* app) {
+    clean_sdl(app);
+    exit(1);
+}
+
 void load_media(App* app) {
     SDL_Color text_color = {0xc1, 0xc4, 0xdb, 255};
     SDL_Color focus_color = {0xc0, 0xa3, 0x6e, 255};
@@ -138,14 +143,14 @@ SDL_Texture* create_text(App* app, const char* text, SDL_Color color, SDL_FRect*
 
     if(!font) {
         fprintf(stderr, "%s\n", TTF_GetError());
-        return NULL;
+        exit_program(app);
     }
 
     SDL_Surface *surface = TTF_RenderText_Blended(font, text, color);
 
     if(!surface) {
         fprintf(stderr, "%s\n", SDL_GetError());
-        return NULL;
+        exit_program(app);
     }
 
     rect->w = surface->w;
@@ -155,7 +160,7 @@ SDL_Texture* create_text(App* app, const char* text, SDL_Color color, SDL_FRect*
 
     if(!new_texture) {
         fprintf(stderr, "%s\n", SDL_GetError());
-        return NULL;
+        exit_program(app);
     }
 
     SDL_FreeSurface(surface);
