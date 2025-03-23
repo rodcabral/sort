@@ -133,7 +133,7 @@ void render(App* app, int r) {
 }
 
 SDL_Texture* create_text(App* app, const char* text, SDL_Color color, SDL_FRect* rect, int size) {
-    TTF_Font* font = TTF_OpenFont("./fonts/Montserrat-Regular.otf", size);
+    TTF_Font* font = TTF_OpenFont("./fonts/montserrat-regular.otf", size);
 
     if(!font) {
         fprintf(stderr, "%s\n", TTF_GetError());
