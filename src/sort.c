@@ -22,6 +22,18 @@ void shuffle(App* app, int n) {
     }
 }
 
+void pause_sort(App* app) {
+    while(app->is_paused) {
+        handle_input(app);
+        if(!app->is_running) {
+            clean_sdl(app);
+            exit(1);
+        }
+        SDL_RenderCopyF(app->renderer, app->pause_info.texture, NULL, &app->pause_info.rect);
+        SDL_RenderPresent(app->renderer);
+    }
+}
+
 void bubble_sort(App* app) {
     shuffle(app, 100);
     app->current_algorithm = "Bubble Sort";
@@ -32,15 +44,7 @@ void bubble_sort(App* app) {
                 swap(&app->lines[j].value, &app->lines[j+1].value);
                 render(app, j);
                 
-                while(app->is_paused) {
-                    handle_input(app);
-                    if(!app->is_running) {
-                        clean_sdl(app);
-                        exit(1);
-                    }
-                    SDL_RenderCopyF(app->renderer, app->pause_info.texture, NULL, &app->pause_info.rect);
-                    SDL_RenderPresent(app->renderer);
-                }
+                pause_sort(app);
 
                 SDL_Delay(10);
             }
@@ -63,15 +67,7 @@ void selection_sort(App* app) {
                 data_min = app->lines[j].value;
                 render(app, j);
                 
-                while(app->is_paused) {
-                    handle_input(app);
-                    if(!app->is_running) {
-                        clean_sdl(app);
-                        exit(1);
-                    }
-                    SDL_RenderCopyF(app->renderer, app->pause_info.texture, NULL, &app->pause_info.rect);
-                    SDL_RenderPresent(app->renderer);
-                }
+                pause_sort(app); 
 
                 SDL_Delay(10);
             }
@@ -98,15 +94,7 @@ void insertion_sort(App* app) {
             if(!app->is_running) break;
             render(app, i-1);
 
-            while(app->is_paused) {
-                handle_input(app);
-                if(!app->is_running) {
-                    clean_sdl(app);
-                    exit(1);
-                }
-                SDL_RenderCopyF(app->renderer, app->pause_info.texture, NULL, &app->pause_info.rect);
-                SDL_RenderPresent(app->renderer);
-            } 
+            pause_sort(app);            
 
             SDL_Delay(10);
         } 
@@ -145,15 +133,7 @@ void merge(App* app, Line* lines, int l, int m, int r) {
         k++;
         render(app, k);
 
-        while(app->is_paused) {
-            handle_input(app);
-            if(!app->is_running) {
-                clean_sdl(app);
-                exit(1);
-            }
-            SDL_RenderCopyF(app->renderer, app->pause_info.texture, NULL, &app->pause_info.rect);
-            SDL_RenderPresent(app->renderer);
-        } 
+        pause_sort(app);
 
         SDL_Delay(10);
     }
