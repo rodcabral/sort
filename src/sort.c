@@ -92,7 +92,7 @@ void insertion_sort(App* app) {
 
             handle_input(app);
             if(!app->is_running) break;
-            render(app, i-1);
+            render(app, j-1);
 
             pause_sort(app);            
 
