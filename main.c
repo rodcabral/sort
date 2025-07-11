@@ -1,8 +1,9 @@
-#include <stdio.h>
+#include "./include/sort.h"
 
 int main() {
+    App app;
 
-    printf("hello, world!\n");
+    setup(&app);
 
     return 0;
 }
