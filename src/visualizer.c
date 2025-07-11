@@ -9,3 +9,22 @@ void setup(App* app) {
 
     app->is_running = true;
 }
+
+void handle_input(App* app) {
+    SDL_Event event;
+
+    SDL_PollEvent(&event);
+
+    switch(event.type) {
+        case SDL_EVENT_QUIT:
+            app->is_running = false;
+            break;
+    }
+}
+
+void render(App* app) {
+    SDL_SetRenderDrawColor(app->renderer, 0x0f, 0x0f, 0x0f, 255);
+    SDL_RenderClear(app->renderer);
+
+    SDL_RenderPresent(app->renderer);
+}

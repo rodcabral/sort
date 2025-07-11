@@ -16,6 +16,8 @@ typedef struct {
 } App;
 
 void setup(App *app);
+void render(App* app);
+void handle_input(App* app);
 
 #endif
 
