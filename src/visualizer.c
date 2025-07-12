@@ -1,11 +1,25 @@
 #include "../include/visualizer.h"
 
 void setup(App* app) {
+    srand(time(NULL));
+
     if(!SDL_Init(SDL_INIT_VIDEO)) {
         fprintf(stderr, "%s\n", SDL_GetError());
     }
 
     SDL_CreateWindowAndRenderer("Sort", (int)WINDOW_WIDTH, (int)WINDOW_HEIGHT, SDL_WINDOW_BORDERLESS, &app->window, &app->renderer);
+
+    app->is_running = true;
+
+    app->container.w = CONTAINER_WIDTH;
+    app->container.h = CONTAINER_HEIGHT;
+    app->container.x = (WINDOW_WIDTH / 2) - (CONTAINER_WIDTH / 2);
+    app->container.y = (WINDOW_HEIGHT / 2) - (CONTAINER_HEIGHT / 2);
+
+    app->status_container.w = WINDOW_WIDTH;
+    app->status_container.h = 20;
+    app->status_container.x = 0;
+    app->status_container.y = WINDOW_HEIGHT - app->status_container.h;
 
     app->is_running = true;
 }
@@ -27,10 +41,10 @@ void render(App* app, int r) {
     SDL_RenderClear(app->renderer);
 
     SDL_SetRenderDrawColor(app->renderer, 0xa9, 0xb1, 0xd6, 255);
-    SDL_RenderDrawRectF(app->renderer, &app->container);
+    SDL_RenderRect(app->renderer, &app->container);
 
     SDL_SetRenderDrawColor(app->renderer, 0x19, 0x19, 0x19, 255);
-    SDL_RenderFillRectF(app->renderer, &app->status_container);
+    SDL_RenderFillRect(app->renderer, &app->status_container);
 
     int gap = 1;
     
@@ -51,7 +65,7 @@ void render(App* app, int r) {
             SDL_SetRenderDrawColor(app->renderer, 0xee, 0xee, 0xee, 255);
         }
 
-        SDL_RenderFillRectF(app->renderer, &app->lines[i].rect);
+        SDL_RenderFillRect(app->renderer, &app->lines[i].rect);
     }
 
     handle_input(app); 

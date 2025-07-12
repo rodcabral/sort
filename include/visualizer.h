@@ -8,7 +8,9 @@
 
 #define MAX_LENGTH 250
 
+#include <unistd.h>
 #include <stdio.h>
+#include <time.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <SDL3/SDL.h>
