@@ -3,6 +3,8 @@
 
 #define WINDOW_WIDTH 900.0f
 #define WINDOW_HEIGHT 650.0f
+#define CONTAINER_WIDTH 800.0f
+#define CONTAINER_HEIGHT 400.0f
 
 #define MAX_LENGTH 250
 
@@ -20,6 +22,9 @@ typedef struct {
 
     int length;
     Line lines[MAX_LENGTH];
+
+    SDL_FRect container;
+    SDL_FRect status_container;
 
     SDL_Window* window;
     SDL_Renderer* renderer;
