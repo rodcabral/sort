@@ -5,5 +5,7 @@ int main() {
 
     setup(&app);
 
+    bubble_sort(&app);
+
     return 0;
 }
