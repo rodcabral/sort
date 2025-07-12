@@ -72,3 +72,8 @@ void render(App* app, int r) {
 
     SDL_RenderPresent(app->renderer);
 }
+
+void clean_sdl(App* app) {
+    SDL_DestroyRenderer(app->renderer);
+    SDL_DestroyWindow(app->window);
+}

@@ -37,6 +37,7 @@ typedef struct {
 void setup(App *app);
 void render(App* app, int r);
 void handle_input(App* app);
+void clean_sdl(App* app);
 
 #endif
 
