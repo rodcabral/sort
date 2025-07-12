@@ -36,3 +36,23 @@ void bubble_sort(App* app) {
 
     sorted(app);
 }
+
+void selection_sort(App* app) {
+    shuffle(app, 200);
+    for(int i = 0; i < app->length; ++i) {
+        int min = i;
+        int data_min = app->lines[i].value;
+        for(int j = i; j < app->length; ++j) {
+            if(app->lines[j].value < data_min) {
+                min = j;
+                data_min = app->lines[j].value;
+                render(app, j - 1);
+                
+                SDL_Delay(10);
+            }
+        }
+        swap(&app->lines[i].value, &app->lines[min].value);
+    }
+
+    sorted(app);
+}
