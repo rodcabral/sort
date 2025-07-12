@@ -9,6 +9,7 @@
 #define MAX_LENGTH 250
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <SDL3/SDL.h>
 
@@ -19,6 +20,7 @@ typedef struct {
 
 typedef struct {
     bool is_running;
+    bool is_sorted;
 
     int length;
     Line lines[MAX_LENGTH];
@@ -31,7 +33,7 @@ typedef struct {
 } App;
 
 void setup(App *app);
-void render(App* app);
+void render(App* app, int r);
 void handle_input(App* app);
 
 #endif
