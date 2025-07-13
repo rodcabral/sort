@@ -28,6 +28,7 @@ SDL_Texture* create_text(App* app, const char* text, SDL_Color color, SDL_FRect*
     return new_texture;
 }
 
+
 void load_media(App* app) {
     SDL_Color text_color = {0xc1, 0xc4, 0xdb, 255};
     SDL_Color focus_color = {0xc0, 0xa3, 0x6e, 255};
@@ -36,6 +37,23 @@ void load_media(App* app) {
     app->title.texture = create_text(app, app->current_algorithm, text_color, &app->title.rect, 21);
     app->title.rect.x = app->container.x + (app->container.w/2) - (app->title.rect.w/2);
     app->title.rect.y = app->container.y - 50;
+
+    char info_buffer[100];
+    snprintf(info_buffer, 100, "length:  %d  |  press", app->length);
+
+    app->info.texture = create_text(app, info_buffer, text_color, &app->info.rect, 13);
+    app->info.rect.x = app->status_container.x + 10;
+    app->info.rect.y = app->status_container.y + 1;
+
+    app->pause_focus.texture = create_text(app, "  SPACE", focus_color, &app->pause_focus.rect, 11);
+    app->pause_focus.rect.x = app->info.rect.x + app->info.rect.w;
+    app->pause_focus.rect.y = app->status_container.y + 3;
+    
+    app->second_pause_info.texture = create_text(app, "  to pause", text_color, &app->second_pause_info.rect, 13);
+    app->second_pause_info.rect.x = app->pause_focus.rect.x + app->pause_focus.rect.w;
+    app->second_pause_info.rect.y = app->status_container.y + 1;
+
+    app->pause_info.texture = create_text(app, "PAUSED", paused_color, &app->pause_info.rect, 18);
 }
 
 void setup(App* app) {
@@ -65,6 +83,9 @@ void setup(App* app) {
 
     app->is_running = true;
     app->is_paused = false;
+
+    app->pause_info.rect.x = 20;
+    app->pause_info.rect.y = 20;
 
     load_media(app);
 }
@@ -111,6 +132,10 @@ void render(App* app, int r) {
 
     SDL_SetRenderDrawColor(app->renderer, 0x19, 0x19, 0x19, 255);
     SDL_RenderFillRect(app->renderer, &app->status_container);
+
+    SDL_RenderTexture(app->renderer, app->info.texture, NULL, &app->info.rect);
+    SDL_RenderTexture(app->renderer, app->pause_focus.texture, NULL, &app->pause_focus.rect);
+    SDL_RenderTexture(app->renderer, app->second_pause_info.texture, NULL, &app->second_pause_info.rect);
 
     int gap = 1;
     

@@ -44,6 +44,10 @@ typedef struct {
     const char* current_algorithm;
 
     Object title;
+    Object info;
+    Object pause_info;
+    Object pause_focus;
+    Object second_pause_info;
 } App;
 
 void setup(App *app);
