@@ -12,13 +12,20 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 #include <SDL3/SDL.h>
+#include <SDL3_ttf/SDL_ttf.h>
 
 typedef struct {
     SDL_FRect rect;
     int value;
 } Line;
+
+typedef struct {
+    SDL_FRect rect;
+    SDL_Texture *texture;
+} Object;
 
 typedef struct {
     bool is_running;
@@ -33,6 +40,10 @@ typedef struct {
 
     SDL_Window* window;
     SDL_Renderer* renderer;
+
+    const char* current_algorithm;
+
+    Object title;
 } App;
 
 void setup(App *app);
@@ -40,5 +51,8 @@ void render(App* app, int r);
 void handle_input(App* app);
 void clean_sdl(App* app);
 
-#endif
+SDL_Texture* create_text(App* app, const char* txt, SDL_Color color, SDL_FRect* props, int size);
 
+void load_media(App* app);
+
+#endif

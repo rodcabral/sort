@@ -33,6 +33,8 @@ void shuffle(App* app, int n) {
 
 void bubble_sort(App* app) {
     shuffle(app, 100);
+    app->current_algorithm = "Bubble Sort";
+    load_media(app);
     for(int i = 0; i < app->length; ++i) {
         for(int j = 0; j < app->length - i - 1; ++j) {
             if(app->lines[j].value > app->lines[j + 1].value) {
@@ -51,6 +53,10 @@ void bubble_sort(App* app) {
 
 void selection_sort(App* app) {
     shuffle(app, 200);
+
+    app->current_algorithm = "Selection Sort";
+    load_media(app);
+
     for(int i = 0; i < app->length; ++i) {
         int min = i;
         int data_min = app->lines[i].value;
@@ -73,6 +79,9 @@ void selection_sort(App* app) {
 
 void insertion_sort(App* app) {
     shuffle(app, 100);
+
+    app->current_algorithm = "Insertion Sort";
+    load_media(app);
 
     for(int i = 0; i < app->length; ++i) {
         int j = i;

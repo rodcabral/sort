@@ -1,10 +1,54 @@
 #include "../include/visualizer.h"
 
+SDL_Texture* create_text(App* app, const char* text, SDL_Color color, SDL_FRect* rect, int size) {
+    TTF_Font* font = TTF_OpenFont("./fonts/montserrat-regular.otf", size);
+
+    if(!font) {
+        fprintf(stderr, "Could not open font!\n");
+    }
+
+    SDL_Surface *surface = TTF_RenderText_Blended(font, text, strlen(text), color);
+
+    if(!surface) {
+        fprintf(stderr, "Could not create font surface!\n");
+    }
+
+    rect->w = surface->w;
+    rect->h = surface->h;
+    
+    SDL_Texture *new_texture = SDL_CreateTextureFromSurface(app->renderer, surface);
+
+    if(!new_texture) {
+        fprintf(stderr, "Could not create font texture!\n");
+    }
+
+    SDL_DestroySurface(surface);
+    TTF_CloseFont(font);
+
+    return new_texture;
+}
+
+void load_media(App* app) {
+    SDL_Color text_color = {0xc1, 0xc4, 0xdb, 255};
+    SDL_Color focus_color = {0xc0, 0xa3, 0x6e, 255};
+    SDL_Color paused_color = {0xc3, 0x40, 0x43, 255};
+
+    app->title.texture = create_text(app, app->current_algorithm, text_color, &app->title.rect, 21);
+    app->title.rect.x = app->container.x + (app->container.w/2) - (app->title.rect.w/2);
+    app->title.rect.y = app->container.y - 50;
+}
+
 void setup(App* app) {
     srand(time(NULL));
 
+    app->current_algorithm = "Algorithm";
+
     if(!SDL_Init(SDL_INIT_VIDEO)) {
         fprintf(stderr, "%s\n", SDL_GetError());
+    }
+
+    if(!TTF_Init()) {
+        fprintf(stderr, "Could not init TTF\n");
     }
 
     SDL_CreateWindowAndRenderer("Sort", (int)WINDOW_WIDTH, (int)WINDOW_HEIGHT, SDL_WINDOW_BORDERLESS, &app->window, &app->renderer);
@@ -21,6 +65,8 @@ void setup(App* app) {
 
     app->is_running = true;
     app->is_paused = false;
+
+    load_media(app);
 }
 
 void handle_input(App* app) {
@@ -57,6 +103,8 @@ void handle_input(App* app) {
 void render(App* app, int r) {
     SDL_SetRenderDrawColor(app->renderer, 0x0f, 0x0f, 0x0f, 255);
     SDL_RenderClear(app->renderer);
+
+    SDL_RenderTexture(app->renderer, app->title.texture, NULL, &app->title.rect);
 
     SDL_SetRenderDrawColor(app->renderer, 0xa9, 0xb1, 0xd6, 255);
     SDL_RenderRect(app->renderer, &app->container);
