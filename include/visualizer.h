@@ -23,6 +23,7 @@ typedef struct {
 typedef struct {
     bool is_running;
     bool is_sorted;
+    bool is_paused;
 
     int length;
     Line lines[MAX_LENGTH];

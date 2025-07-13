@@ -9,8 +9,6 @@ void setup(App* app) {
 
     SDL_CreateWindowAndRenderer("Sort", (int)WINDOW_WIDTH, (int)WINDOW_HEIGHT, SDL_WINDOW_BORDERLESS, &app->window, &app->renderer);
 
-    app->is_running = true;
-
     app->container.w = CONTAINER_WIDTH;
     app->container.h = CONTAINER_HEIGHT;
     app->container.x = (WINDOW_WIDTH / 2) - (CONTAINER_WIDTH / 2);
@@ -22,6 +20,7 @@ void setup(App* app) {
     app->status_container.y = WINDOW_HEIGHT - app->status_container.h;
 
     app->is_running = true;
+    app->is_paused = false;
 }
 
 void handle_input(App* app) {
@@ -33,6 +32,25 @@ void handle_input(App* app) {
         case SDL_EVENT_QUIT:
             app->is_running = false;
             break;
+        case SDL_EVENT_KEY_DOWN:
+            switch(event.key.key) {
+                case SDLK_ESCAPE:
+                    app->is_running = false;
+                    break;
+                case SDLK_SPACE:
+                    if(app->is_paused) {
+                        app->is_paused = false;
+                    } else {
+                        app->is_paused = true;
+                    }
+                    break;
+            }
+            break;
+    }
+
+    if(!app->is_running) {
+        clean_sdl(app);
+        exit(0);
     }
 }
 

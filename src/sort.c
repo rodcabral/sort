@@ -13,6 +13,16 @@ void sorted(App* app) {
     app->is_sorted = false;
 }
 
+void pause_sort(App* app) {
+    while(app->is_paused) {
+        handle_input(app);
+        if(!app->is_running) {
+            clean_sdl(app);
+            exit(1);
+        }
+        SDL_RenderPresent(app->renderer);
+    }
+}
 void shuffle(App* app, int n) {
     app->length = n;
     
@@ -28,6 +38,8 @@ void bubble_sort(App* app) {
             if(app->lines[j].value > app->lines[j + 1].value) {
                 swap(&app->lines[j].value, &app->lines[j+1].value);
                 render(app, j);
+
+                pause_sort(app);
                 
                 SDL_Delay(10);
             }
@@ -47,6 +59,8 @@ void selection_sort(App* app) {
                 min = j;
                 data_min = app->lines[j].value;
                 render(app, j - 1);
+
+                pause_sort(app);
                 
                 SDL_Delay(10);
             }
