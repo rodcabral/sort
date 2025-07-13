@@ -103,3 +103,79 @@ void insertion_sort(App* app) {
 
     sorted(app);
 }
+
+
+void merge(App* app, Line* lines, int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+    
+    Line L[n1];
+    Line R[n2];
+
+    for(int i = 0; i < n1; ++i) {
+        L[i].value = lines[l + i].value;
+    }
+
+    for(int j = 0; j < n2; ++j) {
+        R[j].value = lines[m + 1 + j].value;
+    }
+
+    int i = 0;
+    int j = 0;
+    int k = l;
+
+    while(i < n1 && j < n2) {
+        if(L[i].value <= R[j].value) {
+            lines[k].value = L[i].value;
+            i++;
+        } else {
+            lines[k] = R[j];
+            j++;
+        }
+        k++;
+        render(app, k);
+
+        pause_sort(app);
+
+        SDL_Delay(10);
+    }
+
+    while(i < n1) {
+        lines[k].value = L[i].value;
+        i++;
+        k++;
+    }
+
+    while(j < n2) {
+        lines[k].value = R[j].value;
+        j++;
+        k++;
+    } 
+}
+
+void _merge_sort(App* app, Line* lines, int l, int r) {
+    if(l < r) {
+        int m = (l+r)/2;
+ 
+        if(l >= app->length/2 && l <= (app->length/2) + 1) {
+            SDL_DestroyTexture(app->title.texture);
+            SDL_DestroyTexture(app->info.texture);
+
+            app->current_algorithm = "Merge Sort";
+            load_media(app);
+        }
+        
+        _merge_sort(app, lines, l, m);
+        _merge_sort(app, lines, m+1, r);
+        merge(app, lines, l, m, r);
+    }
+}
+
+void merge_sort(App* app) {
+    app->current_algorithm = "Merge Sort";
+    shuffle(app, 200);
+    load_media(app);
+    _merge_sort(app, app->lines, 0, app->length);
+
+    sorted(app);
+}
