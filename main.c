@@ -7,6 +7,7 @@ int main() {
 
     bubble_sort(&app);
     selection_sort(&app);
+    insertion_sort(&app);
 
     return 0;
 }

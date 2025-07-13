@@ -70,3 +70,26 @@ void selection_sort(App* app) {
 
     sorted(app);
 }
+
+void insertion_sort(App* app) {
+    shuffle(app, 100);
+
+    for(int i = 0; i < app->length; ++i) {
+        int j = i;
+
+        while(j > 0 && app->lines[j].value < app->lines[j-1].value) {
+            swap(&app->lines[j].value, &app->lines[j-1].value);
+            j--;
+
+            handle_input(app);
+            if(!app->is_running) break;
+            render(app, j-1);
+
+            pause_sort(app);            
+
+            SDL_Delay(10);
+        } 
+    }
+
+    sorted(app);
+}
