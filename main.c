@@ -10,5 +10,7 @@ int main() {
     selection_sort(&app);
     insertion_sort(&app);
 
+    clean_sdl(&app);
+
     return 0;
 }

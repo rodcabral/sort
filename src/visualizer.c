@@ -165,6 +165,12 @@ void render(App* app, int r) {
 }
 
 void clean_sdl(App* app) {
+    SDL_DestroyTexture(app->title.texture);
+    SDL_DestroyTexture(app->info.texture);
+    SDL_DestroyTexture(app->pause_info.texture);
+    SDL_DestroyTexture(app->pause_focus.texture);
+    SDL_DestroyTexture(app->second_pause_info.texture);
+
     SDL_DestroyRenderer(app->renderer);
     SDL_DestroyWindow(app->window);
 }
