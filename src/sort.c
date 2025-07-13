@@ -20,6 +20,7 @@ void pause_sort(App* app) {
             clean_sdl(app);
             exit(1);
         }
+        SDL_RenderTexture(app->renderer, app->pause_info.texture, NULL, &app->pause_info.rect);
         SDL_RenderPresent(app->renderer);
     }
 }
