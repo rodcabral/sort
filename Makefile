@@ -1,4 +1,4 @@
-FLAGS = -Wall -Wextra -fsanitize=address
+FLAGS = -Wall -Wextra
 LIBS = -lSDL3 -lSDL3_ttf
 
 sort: main.c $(wildcard ./include/*.h ./src/*.c)
